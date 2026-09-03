@@ -431,7 +431,7 @@
         "name": "node-red-contrib-opcua",
         "version": "0.2.354",
         "local": true,
-        "user": true,
+        "user": false,
         "nodes": {
             "OpcUa-Item": {
                 "name": "OpcUa-Item",
@@ -538,7 +538,7 @@
         "name": "node-red-contrib-iiot-opcua",
         "version": "4.1.2",
         "local": true,
-        "user": true,
+        "user": false,
         "nodes": {
             "OPCUA-IIoT-Connector": {
                 "name": "OPCUA-IIoT-Connector",

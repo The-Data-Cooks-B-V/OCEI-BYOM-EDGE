@@ -3,17 +3,29 @@ import { ethers } from "ethers";
 import { getTableName, getTableNameAssetsData } from "../../repos/common-repo";
 import { get, put, update } from "../../wrappers/dynamo-db-wrapper";
 import { mapRewardToSaref } from "./mapRewardToSaref";
-
+import {
+  createRewardEvent,
+  createRewardEventHash
+} from "./reward-event";
+import { Buffer } from "buffer";
+// import { UUIDGenerator } from "../../utils/uuid-generator";
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIG
 // ─────────────────────────────────────────────────────────────────────────────
 
-const CONTRACT_ADDRESS = "0x0E00f258f573a17452A52c6C5AFAa22c2D121BB3";
-const POLYGON_RPC = "https://rpc-amoy.polygon.technology/";
+// const CONTRACT_ADDRESS = "0x0E00f258f573a17452A52c6C5AFAa22c2D121BB3";
+const CONTRACT_ADDRESS = "0x05a8F1de04ED8124A8c97d01a9ca195854734497";
+// const POLYGON_RPC = "https://rpc-amoy.polygon.technology/";
+
+// Infura connection to Polygon mainnet (Amoy) — requires Infura project ID.
+const POLYGON_RPC = "https://polygon-amoy.infura.io/v3/b411fafe56c04aac99d4c30e34b55ff4";
 const CUSTOMER_ID = Number(process.env.CUSTOMER_ID ?? 71);
 
 /** Tokens minted per 1% of verified energy improvement (e.g. 11.9% → 23.8 RWD) */
 const REWARD_MULTIPLIER = 2;
+
+/** Explicit gas limit for reward() → skips eth_estimateGas RPC round-trip. */
+const REWARD_GAS_LIMIT = 250_000n;
 
 /**
  * Cyprus grid carbon intensity — EEA 2023 (gCO₂eq/kWh).
@@ -25,7 +37,10 @@ const provider = new ethers.JsonRpcProvider(POLYGON_RPC);
 const wallet = new ethers.Wallet(process.env.MINTER_PK!, provider);
 const contract = new ethers.Contract(
   CONTRACT_ADDRESS,
-  ["function reward(address to, uint256 amount) public"],
+  [
+    "function reward(address,uint256,bytes32,uint8)",
+    "event RewardMinted(bytes32 indexed eventHash,address indexed recipient,uint256 amount,uint8 shareType)"
+  ],
   wallet,
 );
 
@@ -60,6 +75,8 @@ interface VerifyResult {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const handler = async (event: any) => {
+  console.log("event: ",event)
+  console.log("proof: ",event.proof)
   // ── Step 1: Verify edge payload (hash + ED25519 signature) ──────────────
   const verifyResult: VerifyResult = await verifyEdgePayload(event);
   if (!verifyResult.ok) {
@@ -73,7 +90,7 @@ export const handler = async (event: any) => {
   const operatorWallet: string = event.proof?.wallets?.operatorWallet;
   const modelOwnerWallet: string = event.proof?.wallets?.modelOwnerWallet;
   const impact: ImpactData = event?.proof?.impact ?? ({} as ImpactData);
-  const pk = `REWARD_${edgeId}`;
+  const pk = `REWARD_${CUSTOMER_ID}_${edgeId}`;
   const sk = sourceRecordId;
 
   // ── Step 2: Validate wallet addresses ───────────────────────────────────
@@ -94,11 +111,26 @@ export const handler = async (event: any) => {
     console.error("ERROR [STEP 3] calculateRewardSplit failed:", err.message);
     return { ok: false, reason: err.message };
   }
+  const rewardEvent = createRewardEvent({
+    edgeId,
+    sourceRecordId,
+    proofHash: event.hash,
+    operatorWallet,
+    modelOwnerWallet,
+    impact,
+    rewardSplit,
+    verifiedAt: event.proof.verification.verifiedAt
+  });
+
+  const eventHash = createRewardEventHash(rewardEvent);
   // ── Step 4: Idempotency — write PROCESSING record to DynamoDB ───────────
   const now = Date.now();
 
   const payloadToStore = {
     status: "PROCESSING",
+    eventHash,
+    eventVersion: 1,
+    proofHash: event.hash,
     edgeId,
     sourceRecordId,
     totalAmount: rewardSplit.totalAmount,
@@ -125,7 +157,8 @@ export const handler = async (event: any) => {
       network: "polygon-amoy",
       contractAddress: CONTRACT_ADDRESS,
       tokenSymbol: "RWD",
-    },
+      eventHash
+    }
   };
 
   try {
@@ -155,14 +188,15 @@ export const handler = async (event: any) => {
   let modelOwnerTxHash: string;
 
   try {
-    operatorTxHash = await mintReward(
+    console.time("Minting both rewards");
+    ({ operatorTxHash, modelOwnerTxHash } = await broadcastBothRewards(
       operatorWallet,
       rewardSplit.operatorAmount,
-    );
-    modelOwnerTxHash = await mintReward(
       modelOwnerWallet,
       rewardSplit.modelOwnerAmount,
-    );
+      eventHash
+    ));
+    console.timeEnd("Minting both rewards");
   } catch (err: any) {
     console.error("ERROR [STEP 5] Minting failed:", err.message);
     // Mark record as FAILED so it can be investigated / retried
@@ -213,7 +247,7 @@ export const handler = async (event: any) => {
         ":status": "MINTED",
         ":operatorTxHash": operatorTxHash,
         ":modelOwnerTxHash": modelOwnerTxHash,
-        ":mintedAt": mintedAt,
+        ":mintedAt": mintedAt
       },
     });
   } catch (error) {
@@ -233,7 +267,6 @@ export const handler = async (event: any) => {
   }
 
   // ── Step 8: Map to SAREF/JSON-LD ────────────────────────────────────────
-  // TODO Stage 3: POST sarefRecord to CEI-InOE semantic endpoint.
   try {
     const sarefRecord = mapRewardToSaref({
       edgeId,
@@ -303,10 +336,56 @@ function calculateRewardSplit(proof: any, impact: ImpactData): RewardSplit {
 // MINT
 // ─────────────────────────────────────────────────────────────────────────────
 
-async function mintReward(to: string, amount: string): Promise<string> {
-  const tx = await contract.reward(to, amount);
-  await tx.wait();
-  return tx.hash;
+async function broadcastBothRewards(
+  operatorWallet: string,
+  operatorAmount: string,
+  modelOwnerWallet: string,
+  modelOwnerAmount: string,
+  eventHash: string
+): Promise<{ operatorTxHash: string; modelOwnerTxHash: string }> {
+  const [nonce, feeData] = await Promise.all([
+    wallet.getNonce("pending"),
+    provider.getFeeData(),
+  ]);
+
+  const overrides = {
+    gasLimit: REWARD_GAS_LIMIT,
+    maxFeePerGas: feeData.maxFeePerGas,
+    maxPriorityFeePerGas: feeData.maxPriorityFeePerGas,
+  };
+
+  const [operatorReceipt, modelOwnerReceipt] =
+    await Promise.all([
+      broadcastReward(operatorWallet, operatorAmount, nonce, overrides, eventHash, 0),
+      broadcastReward(modelOwnerWallet, modelOwnerAmount, nonce + 1, overrides, eventHash, 1),
+    ]);
+
+  return {
+    operatorTxHash: operatorReceipt.txHash,
+    modelOwnerTxHash: modelOwnerReceipt.txHash
+  };
+}
+
+async function broadcastReward(
+  to: string,
+  amount: string,
+  nonce: number,
+  overrides: Record<string, unknown>,
+  eventHash: string,
+  shareType: number
+): Promise<any> {
+  const hashHex = eventHash.startsWith("0x") ? eventHash : `0x${eventHash}`;
+  const tx = await contract.reward(to, amount, hashHex, shareType, { ...overrides, nonce });
+
+  const receipt = await tx.wait();
+  if (!receipt) {
+    throw new Error("TRANSACTION_NOT_MINED");
+  }
+
+  return {
+    txHash: receipt.hash,
+    blockNumber: receipt.blockNumber
+  };
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -377,14 +456,16 @@ async function createDpp(
   const timestamp = Date.now();
   const TABLE_NAME = getTableNameAssetsData();
 
-  await createDppRecord(dppAssetId, sourceRecordId, timestamp, TABLE_NAME);
-  await createBarcodeDpp(
-    barcodeAssetId,
-    sourceRecordId,
-    timestamp,
-    TABLE_NAME,
-    impact,
-  );
+  await Promise.all([
+    createDppRecord(dppAssetId, sourceRecordId, timestamp, TABLE_NAME),
+    createBarcodeDpp(
+      barcodeAssetId,
+      sourceRecordId,
+      timestamp,
+      TABLE_NAME,
+      impact,
+    ),
+  ]);
 }
 
 async function createDppRecord(

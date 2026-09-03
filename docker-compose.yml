@@ -1,13 +1,15 @@
-version: "3.8"
-
 services:
-  nodered:
-    image: nodered/node-red
-    container_name: edge-nodered
-    user: "0:0"
+  byom-edge:
+    image: tdchub/ocei:latest
+    container_name: byom-edge
+    restart: unless-stopped
     ports:
       - "1880:1880"
     volumes:
-      - ./node-red:/data
-    environment:
-      - TZ=Europe/Istanbul
+      - ocei-keys:/data/keys
+      - ocei-queue:/data/pending
+      - ocei-queue:/data/queue
+
+volumes:
+  ocei-keys:
+  ocei-queue:

@@ -2,24 +2,69 @@
     "_": {
         "editor": {
             "view": {
-                "view-store-zoom": false,
+                "view-store-zoom": true,
                 "view-store-position": false,
                 "view-show-grid": true,
                 "view-snap-grid": true,
-                "view-grid-size": 20,
+                "view-grid-size": "20",
                 "view-node-status": true,
                 "view-node-info-icon": true,
                 "view-node-show-label": true,
-                "view-show-tips": true,
+                "view-show-tips": false,
                 "view-show-welcome-tours": true
             },
             "tours": {
-                "welcome": "4.1.3"
+                "welcome": "5.0.1"
             },
             "dialog": {
                 "export": {
                     "pretty": true,
                     "json-view": true
+                }
+            },
+            "sidebar": {
+                "state": {
+                    "v": 4,
+                    "tabs": [],
+                    "primary": {
+                        "width": 300,
+                        "top": {
+                            "tabs": [
+                                "info",
+                                "help",
+                                "config",
+                                "context"
+                            ],
+                            "height": 337.20522,
+                            "hidden": false,
+                            "active": "info"
+                        },
+                        "bottom": {
+                            "tabs": [
+                                "debug"
+                            ],
+                            "hidden": false,
+                            "active": "debug"
+                        }
+                    },
+                    "secondary": {
+                        "width": 308.993,
+                        "top": {
+                            "tabs": [
+                                "explorer"
+                            ],
+                            "height": 302.22222,
+                            "hidden": false,
+                            "active": "explorer"
+                        },
+                        "bottom": {
+                            "tabs": [
+                                "palette"
+                            ],
+                            "hidden": false,
+                            "active": "palette"
+                        }
+                    }
                 }
             }
         },
