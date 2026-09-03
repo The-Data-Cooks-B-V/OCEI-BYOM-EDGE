@@ -1,1457 +1,1293 @@
 [
-    {
-        "id": "c9a2b2a2a0d14c01",
-        "type": "tab",
-        "label": "Asset Data Pipeline - Energy Hourly",
-        "disabled": false,
-        "info": "Reads hourly energy REST API, maps it to asset_id format, writes normalized samples to backend data pipeline, and stores normalized samples in flow/global cache for verification flow. Verification flow reads assetSamples:<assetId> and does not know the datasource.",
-        "env": []
-    },
-    {
-        "id": "618d7734aad54e6b",
-        "type": "tab",
-        "label": "VRE Verification Only - Asset Cache",
-        "disabled": false,
-        "info": "Verification-only flow. Reads recommendation.fields.recommendation.verification.rules[].assetId and loads prepared samples from assetSamples:{assetId}. No REST/MQTT/OPCUA/MODBUS datasource mapping here.",
-        "env": []
-    },
-    {
-        "id": "e7008fac9d7a2047",
-        "type": "tab",
-        "label": "VRE Verification Only - Asset Cache",
-        "disabled": true,
-        "info": "Verification-only flow. Reads recommendation.fields.recommendation.verification.rules[].assetId and loads prepared samples from assetSamples:{assetId}. No REST/MQTT/OPCUA/MODBUS datasource mapping here.",
-        "env": []
-    },
-    {
-        "id": "5c1e75981cc1510f",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
-        "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
-        "caname": "AmazonRootCA1.pem",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "772dccd0d9d724d8",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
-        "port": "8883",
-        "tls": "5c1e75981cc1510f",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": true,
-        "protocolVersion": "4",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "0671e55792ed46fc",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
-        "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
-        "caname": "AmazonRootCA1.pem",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "14d7bc36d0eb4880",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
-        "port": "8883",
-        "tls": "0671e55792ed46fc",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": true,
-        "protocolVersion": "4",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "a1a3292ac2a541cd",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
-        "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
-        "caname": "AmazonRootCA1.pem",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "92a34462c612431f",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
-        "port": "8883",
-        "tls": "a1a3292ac2a541cd",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": true,
-        "protocolVersion": "4",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "a658c5eebba042db",
-        "type": "tls-config",
-        "name": "",
-        "cert": "",
-        "key": "",
-        "ca": "",
-        "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
-        "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
-        "caname": "AmazonRootCA1.pem",
-        "servername": "",
-        "verifyservercert": true,
-        "alpnprotocol": ""
-    },
-    {
-        "id": "e423bb86993041a4",
-        "type": "mqtt-broker",
-        "name": "",
-        "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
-        "port": "8883",
-        "tls": "a658c5eebba042db",
-        "clientid": "",
-        "autoConnect": true,
-        "usetls": true,
-        "protocolVersion": "4",
-        "keepalive": 60,
-        "cleansession": true,
-        "autoUnsubscribe": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthRetain": "false",
-        "birthPayload": "",
-        "birthMsg": {},
-        "closeTopic": "",
-        "closeQos": "0",
-        "closeRetain": "false",
-        "closePayload": "",
-        "closeMsg": {},
-        "willTopic": "",
-        "willQos": "0",
-        "willRetain": "false",
-        "willPayload": "",
-        "willMsg": {},
-        "userProps": "",
-        "sessionExpiry": ""
-    },
-    {
-        "id": "b4f7b9b6d3e14cc1",
-        "type": "inject",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "Hourly Energy Poll",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "3600",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "1",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 160,
-        "y": 120,
-        "wires": [
-            [
-                "bd0c84ef0dbb4115"
-            ]
-        ]
-    },
-    {
-        "id": "bd0c84ef0dbb4115",
-        "type": "function",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "Set Energy Asset Mapping",
-        "func": "// This is the only place in this flow that knows the datasource mapping.\n// Verification flow will not know REST/MQTT/OPCUA/MODBUS.\n\nmsg.assetMapping = {\n    assetId: \"1780305924234\",\n    customerId: 71,\n\n    source: \"REST_ENERGY_HOURLY\",\n    type: \"REST\",\n    endpoint: \"http://37.60.249.48:8000/api/v1/energy/hourly\",\n    method: \"GET\",\n\n    responsePath: \"data\",\n    timestampField: \"ts\",\n    valueField: \"energy_kwh\",\n    unit: \"kWh\",\n\n    sourceDeviceId: \"15\",\n    query: {\n        startDateParam: \"start_date\",\n        endDateParam: \"end_date\",\n        sourceDeviceParam: \"datasource_id\",\n        page: 1,\n        pageSize: 100\n    },\n\n    headers: {\n        \"x-api-key\": \"avRQa_Jf16np\"\n    }\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 180,
-        "y": 180,
-        "wires": [
-            [
-                "a6f8c31e6c7a4d3d"
-            ]
-        ]
-    },
-    {
-        "id": "a6f8c31e6c7a4d3d",
-        "type": "function",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "Build Energy REST Request",
-        "func": "const mapping = msg.assetMapping;\n\nif (!mapping?.endpoint) {\n    node.warn(\"assetMapping.endpoint missing\");\n    return null;\n}\n\nfunction formatLocalDate(ms) {\n    return new Intl.DateTimeFormat(\"en-CA\", {\n        timeZone: \"Europe/Istanbul\",\n        year: \"numeric\",\n        month: \"2-digit\",\n        day: \"2-digit\"\n    }).format(new Date(ms));\n}\n\nfunction addDays(ms, days) {\n    return ms + days * 24 * 60 * 60 * 1000;\n}\n\nconst startTime = new Date(\"2026-04-01\").getTime();\nconst endTime = new Date(\"2026-04-14\").getTime();\nconst startMs = startTime\nconst endMs = endTime\n\nconst query = mapping.query || {};\nconst startDateParam = query.startDateParam || \"start_date\";\nconst endDateParam = query.endDateParam || \"end_date\";\nconst sourceDeviceParam = query.sourceDeviceParam || \"datasource_id\";\nconst page = query.page || 1;\nconst pageSize = query.pageSize || 100;\n\nconst params = new URLSearchParams();\nparams.set(startDateParam, formatLocalDate(startMs));\nparams.set(endDateParam, formatLocalDate(addDays(endMs, 1)));\nparams.set(sourceDeviceParam, String(mapping.sourceDeviceId));\nparams.set(\"page\", String(page));\nparams.set(\"page_size\", String(pageSize));\n\nif (query.extra && typeof query.extra === \"object\") {\n    for (const [key, value] of Object.entries(query.extra)) {\n        params.set(key, String(value));\n    }\n}\n\nmsg.url = `${mapping.endpoint}?${params.toString()}`;\nmsg.method = mapping.method || \"GET\";\nmsg.headers = mapping.headers || {};\n\nnode.status({ fill: \"blue\", shape: \"dot\", text: `GET energy ${mapping.assetId}` });\nnode.warn({ branch: \"ENERGY_REST\", assetId: mapping.assetId, url: msg.url });\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 180,
-        "y": 240,
-        "wires": [
-            [
-                "e104fed5df68441a"
-            ]
-        ]
-    },
-    {
-        "id": "e104fed5df68441a",
-        "type": "http request",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "GET Energy Hourly REST",
-        "method": "use",
-        "ret": "obj",
-        "paytoqs": "ignore",
-        "url": "",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 170,
-        "y": 300,
-        "wires": [
-            [
-                "a76d7cfb40494907"
-            ]
-        ]
-    },
-    {
-        "id": "a76d7cfb40494907",
-        "type": "function",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "Normalize Energy + Cache + Build Backend Payload",
-        "func": "const mapping = msg.assetMapping;\nif (!mapping?.assetId) {\n    node.warn(\"assetMapping.assetId missing\");\n    return null;\n}\n\nfunction getRowsByPath(payload, path) {\n    if (!path) return payload;\n    return String(path).split(\".\").reduce((acc, key) => {\n        if (acc && acc[key] !== undefined) return acc[key];\n        return undefined;\n    }, payload);\n}\n\nfunction toMillis(rawTs) {\n    if (rawTs === null || rawTs === undefined || rawTs === \"\") return NaN;\n\n    if (typeof rawTs === \"number\") {\n        // If timestamp is seconds, convert to ms. If already ms, keep it.\n        return rawTs < 100000000000 ? rawTs * 1000 : rawTs;\n    }\n\n    const numeric = Number(rawTs);\n    if (!Number.isNaN(numeric) && Number.isFinite(numeric)) {\n        return numeric < 100000000000 ? numeric * 1000 : numeric;\n    }\n\n    return new Date(rawTs).getTime();\n}\n\nconst rowsCandidate = getRowsByPath(msg.payload, mapping.responsePath || \"data\");\nconst rows =\n    Array.isArray(rowsCandidate) ? rowsCandidate :\n    Array.isArray(msg.payload?.data) ? msg.payload.data :\n    Array.isArray(msg.payload?.items) ? msg.payload.items :\n    Array.isArray(msg.payload?.data?.items) ? msg.payload.data.items :\n    [];\n\nif (!rows.length) {\n    node.warn(\"NO ENERGY ROWS FROM REST API\");\n    return null;\n}\n\nconst tsField = mapping.timestampField || \"ts\";\nconst valueField = mapping.valueField || \"energy_kwh\";\n\nconst samples = rows\n    .map(r => {\n        const ts = toMillis(r[tsField]);\n        const value = Number(r[valueField]);\n\n        if (!ts || Number.isNaN(ts) || Number.isNaN(value) || !Number.isFinite(value)) {\n            return null;\n        }\n\n        return {\n            ts,\n            value,\n            assetId: mapping.assetId,\n            customerId: mapping.customerId,\n            unit: mapping.unit,\n            sourceDeviceId: mapping.sourceDeviceId,\n            source: mapping.source,\n            rawTimestamp: r[tsField]\n        };\n    })\n    .filter(Boolean)\n    .sort((a, b) => a.ts - b.ts);\n\nif (!samples.length) {\n    node.warn(`NO VALID ENERGY SAMPLES field=${valueField}`);\n    return null;\n}\n\n\nconst cacheKey = `assetSamples:${mapping.assetId}`;\nconst now = Date.now();\nconst maxAgeMs = 90 * 24 * 60 * 60 * 1000;\nconst existing = flow.get(cacheKey) || global.get(cacheKey) || [];\nconst byTs = new Map();\n\nfor (const s of existing) {\n    if (s?.ts && now - Number(s.ts) <= maxAgeMs) {\n        byTs.set(Number(s.ts), s);\n    }\n}\n\nfor (const s of samples) {\n    if (now - Number(s.ts) <= maxAgeMs) {\n        byTs.set(Number(s.ts), s);\n    }\n}\n\nconst merged = Array.from(byTs.values()).sort((a, b) => Number(a.ts) - Number(b.ts));\nflow.set(cacheKey, merged);\nglobal.set(cacheKey, merged);\n\nconst oneYearSeconds = 365 * 24 * 60 * 60;\nconst backendRecords = samples.map(s => {\n    const timestampSeconds = Math.floor(Number(s.ts) / 1000);\n    return {\n        asset_id: mapping.assetId,\n        timestamp: timestampSeconds,\n        customer_id: mapping.customerId || 71,\n        ttl: timestampSeconds + oneYearSeconds,\n        val: s.value\n    };\n});\n\nmsg.backendRecords = backendRecords;\nmsg.normalizedPayload = backendRecords;\nmsg.payload = backendRecords;\n\nnode.status({\n    fill: \"green\",\n    shape: \"dot\",\n    text: `${mapping.assetId} cached=${merged.length} post=${backendRecords.length}`\n});\n\nnode.warn({\n    status: \"ENERGY_NORMALIZED\",\n    assetId: mapping.assetId,\n    cacheKey,\n    fetchedRows: rows.length,\n    validSamples: samples.length,\n    cachedSamples: merged.length,\n    samplePayload: backendRecords[backendRecords.length - 1]\n});\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 240,
-        "y": 360,
-        "wires": [
-            [
-                "ed01fa2bfda74ec9",
-                "d4300fe7bd6f0db6"
-            ]
-        ]
-    },
-    {
-        "id": "ed01fa2bfda74ec9",
-        "type": "debug",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "Cached + Normalized Records",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "normalizedPayload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 400,
-        "wires": []
-    },
-    {
-        "id": "d4300fe7bd6f0db6",
-        "type": "mqtt out",
-        "z": "c9a2b2a2a0d14c01",
-        "name": "ocei_data/demo",
-        "topic": "ocei_data/demo",
-        "qos": "1",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "772dccd0d9d724d8",
-        "x": 680,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "41b5a813f91640ce",
-        "type": "inject",
-        "z": "618d7734aad54e6b",
-        "name": "Startup - Init Edge",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 20,
-        "wires": [
-            [
-                "6315f43a28dc4da4"
-            ]
-        ]
-    },
-    {
-        "id": "6315f43a28dc4da4",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "ED25519 Init",
-        "func": "const fs = global.get(\"fs\");\nconst crypto = global.get(\"crypto\");\nconst keyDir = \"/data/keys\";\nconst privPath = keyDir + \"/edge_private.pem\";\nconst pubPath = keyDir + \"/edge_public.pem\";\nif (!fs.existsSync(keyDir)) fs.mkdirSync(keyDir, { recursive: true });\nlet privatePem, publicPem;\nif (!fs.existsSync(privPath)) {\n    const { publicKey, privateKey } = crypto.generateKeyPairSync(\"ed25519\");\n    privatePem = privateKey.export({ type: \"pkcs8\", format: \"pem\" });\n    publicPem = publicKey.export({ type: \"spki\", format: \"pem\" });\n    fs.writeFileSync(privPath, privatePem);\n    fs.writeFileSync(pubPath, publicPem);\n    node.warn(\"ED25519 keys generated\");\n} else {\n    privatePem = fs.readFileSync(privPath, \"utf8\");\n    publicPem = fs.readFileSync(pubPath, \"utf8\");\n    node.warn(\"ED25519 keys loaded\");\n}\nglobal.set(\"EDGE_PRIVATE_KEY\", privatePem);\nglobal.set(\"EDGE_PUBLIC_KEY\", publicPem);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 20,
-        "wires": [
-            [
-                "50f5f13f5b1143fb"
-            ]
-        ]
-    },
-    {
-        "id": "50f5f13f5b1143fb",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Assign Edge Id",
-        "func": "const edgeId = \"edge_Netherlands_1\";\nglobal.set(\"EDGE_ID\", edgeId);\nnode.status({ fill: \"green\", shape: \"dot\", text: `READY: ${edgeId}` });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 20,
-        "wires": [
-            [
-                "ae4ec156491749c3"
-            ]
-        ]
-    },
-    {
-        "id": "ae4ec156491749c3",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Register Edge Public Key",
-        "func": "const edgeId = global.get(\"EDGE_ID\");\nconst publicKey = global.get(\"EDGE_PUBLIC_KEY\");\nif (!edgeId || !publicKey) { node.error(\"EDGE_ID OR PUBLIC_KEY MISSING\"); return null; }\nmsg.method = \"POST\";\nmsg.url = \"https://4lvp0dw3hd.execute-api.eu-central-1.amazonaws.com/demo/mp-model-library/save-public-key\";\nmsg.headers = { \"Content-Type\": \"application/json\" };\nmsg.payload = { edgeId, keyId: `${edgeId}#v1`, publicKey, algo: \"ED25519\", registeredAt: Date.now() };\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 20,
-        "wires": [
-            [
-                "751b199d292d4504"
-            ]
-        ]
-    },
-    {
-        "id": "751b199d292d4504",
-        "type": "http request",
-        "z": "618d7734aad54e6b",
-        "name": "POST Register Edge",
-        "method": "use",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 1090,
-        "y": 20,
-        "wires": [
-            [
-                "7e3eacb6a5fa46ef"
-            ]
-        ]
-    },
-    {
-        "id": "7e3eacb6a5fa46ef",
-        "type": "debug",
-        "z": "618d7734aad54e6b",
-        "name": "Register Edge Response",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1350,
-        "y": 20,
-        "wires": []
-    },
-    {
-        "id": "373dd2dd991a4017",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Split Recommendations",
-        "func": "const response = msg.payload;\nnode.warn(response);\nconst list = Array.isArray(response?.data) ? response.data : Array.isArray(response) ? response : response ? [response] : [];\nif (!list.length) { node.warn(\"NO RECOMMENDATIONS FOUND\"); return null; }\nconst messages = list.map(item => {\n    const ai = item;\n    const fields = ai.fields || ai;\n    const recommendationId = ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `${messages.length} recommendations` });\nreturn [messages];",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 470,
-        "y": 100,
-        "wires": [
-            [
-                "d400948dccc34d01"
-            ]
-        ]
-    },
-    {
-        "id": "d400948dccc34d01",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Store Pending Recommendation",
-        "func": "const fs = global.get(\"fs\");\nconst ai = msg.ai || msg.payload;\nconst fields = ai?.fields || ai;\nconst rec = fields?.recommendation;\nconst verification = rec?.verification;\nif (!ai || !rec || !verification) { node.warn(\"INVALID RECOMMENDATION: fields.recommendation.verification missing\"); return null; }\nconst recommendationId = msg.recommendationId || ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst startMs = Number(verification.observationWindow?.startTime);\nconst endMs = Number(verification.observationWindow?.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID observationWindow FOR ${recommendationId}`); return null; }\nconst now = Date.now();\nif (now >= endMs) {\n    msg.ai = ai; msg.fields = fields; msg.recommendationId = recommendationId; msg.payload = ai;\n    node.status({ fill: \"green\", shape: \"dot\", text: `due now ${recommendationId}` });\n    return msg;\n}\nconst pendingDir = \"/data/pending\";\nconst pendingPath = `${pendingDir}/pending_recommendations.json`;\nif (!fs.existsSync(pendingDir)) fs.mkdirSync(pendingDir, { recursive: true });\nlet pending = [];\nif (fs.existsSync(pendingPath)) {\n    try { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { pending = []; }\n}\npending = pending.filter(x => x.recommendationId !== recommendationId);\npending.push({ recommendationId, pk: ai.pk, sk: ai.sk, startTime: startMs, endTime: endMs, status: \"WAITING_OBSERVATION_WINDOW_END\", receivedAt: now, ai });\npending.sort((a, b) => Number(a.endTime) - Number(b.endTime));\nfs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2));\nnode.status({ fill: \"yellow\", shape: \"ring\", text: `pending ${pending.length}` });\nreturn null;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 770,
-        "y": 100,
-        "wires": [
-            [
-                "ce3543b3c50a4b80"
-            ]
-        ]
-    },
-    {
-        "id": "4c0f5fe821484c4d",
-        "type": "inject",
-        "z": "618d7734aad54e6b",
-        "name": "Check Pending Recommendations",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 200,
-        "y": 220,
-        "wires": [
-            [
-                "5b1db7fc0e7c48d1"
-            ]
-        ]
-    },
-    {
-        "id": "5b1db7fc0e7c48d1",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Dispatch Due Recommendations",
-        "func": "const fs = global.get(\"fs\");\nconst pendingPath = \"/data/pending/pending_recommendations.json\";\nif (!fs.existsSync(pendingPath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"no pending\" }); return null; }\nlet pending = [];\ntry { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { node.error(\"FAILED TO READ pending_recommendations.json\"); return null; }\nif (!pending.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"pending empty\" }); return null; }\nconst now = Date.now();\nconst due = [], remaining = [];\nfor (const item of pending) {\n    if (Number(item.endTime) && now >= Number(item.endTime)) due.push(item); else remaining.push(item);\n}\nfs.writeFileSync(pendingPath, JSON.stringify(remaining, null, 2));\nif (!due.length) {\n    const next = remaining.filter(x => x.endTime).sort((a,b) => Number(a.endTime)-Number(b.endTime))[0];\n    if (next) node.status({ fill: \"yellow\", shape: \"ring\", text: `next due in ${Math.ceil((Number(next.endTime)-now)/60000)} min` });\n    return null;\n}\nconst messages = due.map(item => {\n    const ai = item.ai; const fields = ai?.fields || ai;\n    const recommendationId = item.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId, dispatchedAt: now };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `dispatch ${messages.length}` });\nreturn [messages];",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 200,
-        "y": 280,
-        "wires": [
-            [
-                "ce3543b3c50a4b80"
-            ]
-        ]
-    },
-    {
-        "id": "ce3543b3c50a4b80",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Split Verification Rules",
-        "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rules = fields?.recommendation?.verification?.rules || [];\nif (!Array.isArray(rules) || !rules.length) { node.warn(\"NO verification.rules FOUND\"); return null; }\nconst recommendationId = msg.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\nflow.set(`verify:${recommendationId}:expectedCount`, rules.length);\nflow.set(`verify:${recommendationId}:results`, []);\nflow.set(`verify:${recommendationId}:ai`, ai);\nconst messages = rules.map((rule, index) => ({ payload: rule, ai, fields, rule, ruleIndex: index, ruleCount: rules.length, recommendationId }));\nnode.status({ fill: \"green\", shape: \"dot\", text: `${rules.length} rules` });\nreturn [messages];",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 560,
-        "y": 280,
-        "wires": [
-            [
-                "4a4fa8ae54c74768"
-            ]
-        ]
-    },
-    {
-        "id": "4a4fa8ae54c74768",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Read Asset Samples From Cache",
-        "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rule = msg.rule || msg.payload;\nif (!rule?.assetId) { node.warn(\"RULE assetId MISSING\"); return null; }\nconst verification = fields?.recommendation?.verification;\nconst windowName = rule.window || \"observationWindow\";\nconst window = verification?.[windowName] || verification?.observationWindow || {};\nconst startMs = Number(window.startTime);\nconst endMs = Number(window.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID ${windowName} FOR assetId=${rule.assetId}`); return null; }\nconst key = `assetSamples:${rule.assetId}`;\nconst rows = flow.get(key) || global.get(key) || [];\nif (!Array.isArray(rows) || !rows.length) {\n    if (rule.required === false) { msg.assetRows = []; msg.rawValues = []; msg.sampleCount = 0; return msg; }\n    node.warn(`NO CACHED SAMPLES FOR ${key}`); return null;\n}\nconst filteredRows = rows.filter(r => {\n    const ts = Number(r.ts ?? r.timestamp ?? r.time);\n    return ts >= startMs && ts < endMs;\n});\nconst rawValues = filteredRows.map(r => r.value);\nif (!rawValues.length && rule.required !== false) { node.warn(`NO SAMPLES IN ${windowName} FOR assetId=${rule.assetId}`); return null; }\nmsg.assetRows = filteredRows; msg.rawValues = rawValues; msg.sampleCount = rawValues.length; msg.windowUsed = { name: windowName, startMs, endMs };\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${rule.assetId} samples=${rawValues.length}` });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 340,
-        "wires": [
-            [
-                "63d4a278241446ae"
-            ]
-        ]
-    },
-    {
-        "id": "63d4a278241446ae",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Execute Rule",
-        "func": "const rule = msg.rule || msg.payload;\nif (!rule) { node.warn(\"NO RULE\"); return null; }\nfunction compare(value, operator, target) {\n    if (operator === \">\") return value > target;\n    if (operator === \">=\") return value >= target;\n    if (operator === \"<\") return value < target;\n    if (operator === \"<=\") return value <= target;\n    if (operator === \"==\" || operator === \"=\") return value === target;\n    if (operator === \"!=\") return value !== target;\n    throw new Error(`Unsupported operator: ${operator}`);\n}\nfunction toNumbers(values) { return values.map(v => Number(v)).filter(v => !Number.isNaN(v) && Number.isFinite(v)); }\nfunction filterByCondition(values, condition) {\n    const match = String(condition || \"\").trim().match(/^value\\s*(>=|<=|>|<|==|=|!=)\\s*(-?\\d+(\\.\\d+)?)$/);\n    if (!match) throw new Error(`Unsupported FILTER condition: ${condition}`);\n    return values.filter(v => compare(Number(v), match[1], Number(match[2])));\n}\nfunction aggregate(values, type) {\n    const nums = toNumbers(values);\n    if (type === \"COUNT\") return nums.length;\n    if (!nums.length) throw new Error(`${type} cannot run on empty values`);\n    if (type === \"SUM\") return nums.reduce((a,b)=>a+b,0);\n    if (type === \"AVG\") return nums.reduce((a,b)=>a+b,0) / nums.length;\n    if (type === \"MIN\") return Math.min(...nums);\n    if (type === \"MAX\") return Math.max(...nums);\n    if (type === \"FIRST\") return nums[0];\n    if (type === \"LAST\") return nums[nums.length - 1];\n    throw new Error(`Unsupported aggregation: ${type}`);\n}\nfunction executePipeline(values, pipeline) {\n    let result = Array.isArray(values) ? values.slice() : [];\n    for (const step of pipeline || []) {\n        if (!step?.type) throw new Error(\"Invalid pipeline step\");\n        switch (step.type) {\n            case \"REMOVE_NULLS\": result = result.filter(v => v !== null && v !== undefined && v !== \"\" && !Number.isNaN(Number(v))); break;\n            case \"FILTER\": result = filterByCondition(result, step.condition); break;\n            case \"AVG\": case \"SUM\": case \"MIN\": case \"MAX\": case \"FIRST\": case \"LAST\": case \"COUNT\": result = aggregate(result, step.type); break;\n            default: throw new Error(`Unsupported pipeline step: ${step.type}`);\n        }\n    }\n    return result;\n}\nfunction round(value, digits=4) { return (typeof value === \"number\" && Number.isFinite(value)) ? Number(value.toFixed(digits)) : value; }\nfunction evaluateComparison(observedValue, rule) {\n    const comparison = rule.comparison; const operator = rule.operator; const expected = rule.value;\n    let actualValue = observedValue; let passed = false;\n    if (comparison === \"ABSOLUTE\") passed = compare(observedValue, operator, Number(expected));\n    else if (comparison === \"RANGE\") passed = observedValue >= Number(expected?.min) && observedValue <= Number(expected?.max);\n    else if (comparison === \"PERCENT_DECREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((baseline - observedValue) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"PERCENT_INCREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((observedValue - baseline) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"MAX_DEVIATION_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = Math.abs(observedValue - baseline); passed = compare(actualValue, operator || \"<=\", Number(expected));\n    } else throw new Error(`Unsupported comparison: ${comparison}`);\n    return { passed, actualValue: round(actualValue), expectedValue: expected };\n}\ntry {\n    const pipeline = rule.aggregation?.pipeline || [{ type: \"REMOVE_NULLS\" }, { type: \"AVG\" }];\n    const observedValue = executePipeline(msg.rawValues || [], pipeline);\n    if (Array.isArray(observedValue)) throw new Error(`Pipeline ended with array for assetId=${rule.assetId}. Add final aggregation.`);\n    const comparisonResult = evaluateComparison(Number(observedValue), rule);\n    msg.ruleResult = {\n        recommendationId: msg.recommendationId, assetId: rule.assetId, window: rule.window, required: rule.required !== false,\n        passed: comparisonResult.passed, observedValue: round(Number(observedValue)), comparisonActualValue: comparisonResult.actualValue,\n        expectedValue: comparisonResult.expectedValue, comparison: rule.comparison, operator: rule.operator, baseline: rule.baseline,\n        aggregation: { pipeline, rawSampleCount: msg.sampleCount || 0, filteredRowCount: msg.assetRows?.length || 0 }, windowUsed: msg.windowUsed\n    };\n    msg.payload = msg.ruleResult;\n    node.status({ fill: comparisonResult.passed ? \"green\" : \"red\", shape: \"dot\", text: `${rule.assetId} ${comparisonResult.passed ? \"PASS\" : \"FAIL\"}` });\n    return msg;\n} catch (err) { node.error(`RULE_EXECUTION_ERROR: ${err.message}`); return null; }",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 530,
-        "y": 400,
-        "wires": [
-            [
-                "db54ec8d15a04fbb"
-            ]
-        ]
-    },
-    {
-        "id": "db54ec8d15a04fbb",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Accumulate Rule Results",
-        "func": "const recommendationId = msg.recommendationId;\nconst result = msg.ruleResult || msg.payload;\nconst ai = msg.ai || flow.get(`verify:${recommendationId}:ai`);\nif (!recommendationId || !result) { node.warn(\"MISSING recommendationId or rule result\"); return null; }\nconst keyResults = `verify:${recommendationId}:results`;\nconst keyExpected = `verify:${recommendationId}:expectedCount`;\nlet results = flow.get(keyResults) || [];\nconst expectedCount = Number(flow.get(keyExpected) || 0);\nresults = results.filter(r => !(r.assetId === result.assetId && r.comparison === result.comparison));\nresults.push(result);\nflow.set(keyResults, results);\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${results.length}/${expectedCount}` });\nif (!expectedCount || results.length < expectedCount) return null;\nconst requiredResults = results.filter(r => r.required !== false);\nconst optionalResults = results.filter(r => r.required === false);\nconst verified = requiredResults.every(r => r.passed);\nmsg.ai = ai;\nmsg.recommendationId = recommendationId;\nmsg.ruleResults = results;\nmsg.verified = verified;\nmsg.observedMetrics = {};\nmsg.pipelineResults = {};\nfor (const r of results) {\n    msg.observedMetrics[r.assetId] = r.observedValue;\n    msg.pipelineResults[r.assetId] = r.aggregation;\n}\nflow.set(keyResults, []); flow.set(keyExpected, 0);\nif (!verified) {\n    node.warn({ status: \"NOT_VERIFIED\", recommendationId, requiredResults, optionalResults });\n    return null;\n}\nnode.status({ fill: \"green\", shape: \"dot\", text: `VERIFIED ${recommendationId}` });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 460,
-        "wires": [
-            [
-                "45838105010841d5"
-            ]
-        ]
-    },
-    {
-        "id": "45838105010841d5",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Build Generic Proof",
-        "func": "const crypto = global.get(\"crypto\");\nconst ai = msg.ai || {};\nconst fields = ai.fields || ai;\nconst recommendation = fields.recommendation || {};\n\nif (!msg.verified) { node.warn(\"CANNOT BUILD PROOF: NOT VERIFIED\"); return null; }\n\nconst recommendationId = msg.recommendationId || ai.recommendationId ||\n    `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst metadata = fields.metadata || {};\n\nconst energyRule = (msg.ruleResults || []).find(r => r.required === true);\n\nlet impact;\nconst baseline = Number(energyRule.baseline?.value ?? 0);\nconst observed = Number(energyRule.observedValue ?? 0);\nconst energyDelta = baseline - observed;\nconst percentChange = Number(energyRule.comparisonActualValue ?? 0);\nimpact = {\n    energyDelta,\n    percentChange,\n    observedValue: observed,\n    baselineValue: baseline,\n    baselineUnit: energyRule.baseline?.unit ?? null,\n    comparison: energyRule.comparison,\n};\n\n\nmsg.proof = {\n    proofId: crypto.randomUUID(),\n    edgeId: global.get(\"EDGE_ID\"),\n    recommendationId,\n    contractId: fields.contractId,\n    sourceRecord: { pk: ai.pk, sk: ai.sk },\n    recommendation: {\n        title: recommendation.title,\n        type: recommendation.type,\n        expectedImpact: recommendation.expectedImpact,\n        actions: recommendation.actions || []\n    },\n    wallets: {\n        operatorWallet: metadata.operatorWallet,\n        modelOwnerWallet: metadata.modelOwnerWallet\n    },\n    reward: {\n        operatorPercentage: metadata.operatorPercentage,\n        modelOwnerPercentage: metadata.modelOwnerPercentage\n    },\n    verification: {\n        verificationType: recommendation.verification?.verificationType || \"EDGE_RUNTIME_PIPELINE\",\n        verified: true,\n        observationWindow: recommendation.verification?.observationWindow,\n        executionWindow: recommendation.verification?.executionWindow,\n        observedMetrics: msg.observedMetrics,\n        pipelineResults: msg.pipelineResults,\n        ruleResults: msg.ruleResults,\n        verifiedAt: Date.now()\n    },\n    impact,\n    audit: {\n        createdAt: Date.now(),\n        rawSamplesStored: false\n    }\n};\n\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 520,
-        "wires": [
-            [
-                "e569f46f9f6c4cbd"
-            ]
-        ]
-    },
-    {
-        "id": "e569f46f9f6c4cbd",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "SHA256 Hash",
-        "func": "const crypto = global.get(\"crypto\");\nconst proofString = JSON.stringify(msg.proof);\nmsg.hash = crypto.createHash(\"sha256\").update(proofString).digest(\"hex\");\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 580,
-        "wires": [
-            [
-                "c12d0d5ea61645d4"
-            ]
-        ]
-    },
-    {
-        "id": "c12d0d5ea61645d4",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Sign Hash",
-        "func": "const crypto = global.get(\"crypto\");\nconst privateKey = global.get(\"EDGE_PRIVATE_KEY\");\nif (!privateKey) { node.error(\"NO PRIVATE KEY\"); return null; }\nconst signature = crypto.sign(null, Buffer.from(msg.hash), privateKey);\nmsg.signature = signature.toString(\"base64\");\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 260,
-        "wires": [
-            [
-                "f7a400469ffa4fd6"
-            ]
-        ]
-    },
-    {
-        "id": "f7a400469ffa4fd6",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "EDGE → BACKEND Payload",
-        "func": "if (!msg.proof || !msg.hash || !msg.signature) { node.error(\"MISSING PROOF / HASH / SIGNATURE\"); return null; }\nmsg.payload = JSON.stringify({ proof: msg.proof, hash: msg.hash, signature: msg.signature, edgeId: global.get(\"EDGE_ID\"), algo: \"ED25519\", createdAt: Date.now() });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1030,
-        "y": 320,
-        "wires": [
-            [
-                "8c72a4b4ffbb4b69",
-                "a2985f70639244d2"
-            ]
-        ]
-    },
-    {
-        "id": "8c72a4b4ffbb4b69",
-        "type": "debug",
-        "z": "618d7734aad54e6b",
-        "name": "FINAL EDGE PAYLOAD",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1330,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "a2985f70639244d2",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Queue Or Publish",
-        "func": "const fs = global.get(\"fs\");\nconst queueDir = \"/data/queue\";\nconst queuePath = `${queueDir}/pending_proofs.json`;\nif (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir, { recursive: true });\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) {\n    let queue = [];\n    if (fs.existsSync(queuePath)) queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\n    queue.push({ id: msg.proof?.proofId, payload: msg.payload, topic: \"ocei/demo\", queuedAt: Date.now(), retryCount: 0 });\n    fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\n    node.status({ fill: \"yellow\", shape: \"ring\", text: `queued (${queue.length})` });\n    return null;\n}\nmsg.topic = \"ocei/demo\";\nnode.status({ fill: \"green\", shape: \"dot\", text: \"published\" });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 990,
-        "y": 380,
-        "wires": [
-            [
-                "6c63cc00dc61465b"
-            ]
-        ]
-    },
-    {
-        "id": "6c63cc00dc61465b",
-        "type": "mqtt out",
-        "z": "618d7734aad54e6b",
-        "name": "mqtt out(ocei/demo)",
-        "topic": "ocei/demo",
-        "qos": "1",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "772dccd0d9d724d8",
-        "x": 1000,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "fa569b8ddbd04cb4",
-        "type": "status",
-        "z": "618d7734aad54e6b",
-        "name": "cloud status",
-        "scope": [
-            "6c63cc00dc61465b"
-        ],
-        "x": 130,
-        "y": 640,
-        "wires": [
-            [
-                "e7aabc17ae4e42a3"
-            ]
-        ]
-    },
-    {
-        "id": "e7aabc17ae4e42a3",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "cloud status control",
-        "func": "const status = (msg.status?.text || \"\").toLowerCase();\nif (status.includes(\"connected\") && !status.includes(\"disconnected\")) {\n    global.set(\"MQTT_CONNECTED\", true);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"MQTT connected\" });\n} else {\n    global.set(\"MQTT_CONNECTED\", false);\n    node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT disconnected\" });\n}\nreturn null;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 640,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1e12bd402d414393",
-        "type": "inject",
-        "z": "618d7734aad54e6b",
-        "name": "Retry Pending Proofs",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 130,
-        "y": 720,
-        "wires": [
-            [
-                "f50fc484fa6a44e7"
-            ]
-        ]
-    },
-    {
-        "id": "f50fc484fa6a44e7",
-        "type": "function",
-        "z": "618d7734aad54e6b",
-        "name": "Retry One Pending Proof",
-        "func": "const fs = global.get(\"fs\");\nconst queuePath = \"/data/queue/pending_proofs.json\";\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) { node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT offline\" }); return null; }\nif (!fs.existsSync(queuePath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nlet queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\nif (!queue.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nconst item = queue.shift();\nfs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\nnode.status({ fill: \"green\", shape: \"dot\", text: `retrying 1, left ${queue.length}` });\nreturn { payload: item.payload, topic: item.topic || \"ocei/demo\" };",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 720,
-        "wires": [
-            [
-                "6c63cc00dc61465b"
-            ]
-        ]
-    },
-    {
-        "id": "3923bbc28d495267",
-        "type": "mqtt in",
-        "z": "618d7734aad54e6b",
-        "name": "",
-        "topic": "vre/71/recommendations",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "772dccd0d9d724d8",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 150,
-        "y": 100,
-        "wires": [
-            [
-                "373dd2dd991a4017"
-            ]
-        ]
-    },
-    {
-        "id": "2d76631cd7c7e7e3",
-        "type": "inject",
-        "z": "e7008fac9d7a2047",
-        "name": "Startup - Init Edge",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 80,
-        "wires": [
-            [
-                "96fd7a71acfc1c20"
-            ]
-        ]
-    },
-    {
-        "id": "96fd7a71acfc1c20",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "ED25519 Init",
-        "func": "const fs = global.get(\"fs\");\nconst crypto = global.get(\"crypto\");\nconst keyDir = \"/data/keys\";\nconst privPath = keyDir + \"/edge_private.pem\";\nconst pubPath = keyDir + \"/edge_public.pem\";\nif (!fs.existsSync(keyDir)) fs.mkdirSync(keyDir, { recursive: true });\nlet privatePem, publicPem;\nif (!fs.existsSync(privPath)) {\n    const { publicKey, privateKey } = crypto.generateKeyPairSync(\"ed25519\");\n    privatePem = privateKey.export({ type: \"pkcs8\", format: \"pem\" });\n    publicPem = publicKey.export({ type: \"spki\", format: \"pem\" });\n    fs.writeFileSync(privPath, privatePem);\n    fs.writeFileSync(pubPath, publicPem);\n    node.warn(\"ED25519 keys generated\");\n} else {\n    privatePem = fs.readFileSync(privPath, \"utf8\");\n    publicPem = fs.readFileSync(pubPath, \"utf8\");\n    node.warn(\"ED25519 keys loaded\");\n}\nglobal.set(\"EDGE_PRIVATE_KEY\", privatePem);\nglobal.set(\"EDGE_PUBLIC_KEY\", publicPem);\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 80,
-        "wires": [
-            [
-                "1e72578340376f04"
-            ]
-        ]
-    },
-    {
-        "id": "1e72578340376f04",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Assign Edge Id",
-        "func": "const edgeId = \"edge_Netherlands_1\";\nglobal.set(\"EDGE_ID\", edgeId);\nnode.status({ fill: \"green\", shape: \"dot\", text: `READY: ${edgeId}` });\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 590,
-        "y": 80,
-        "wires": [
-            [
-                "01b01627d8e26040"
-            ]
-        ]
-    },
-    {
-        "id": "01b01627d8e26040",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Register Edge Public Key",
-        "func": "const edgeId = global.get(\"EDGE_ID\");\nconst publicKey = global.get(\"EDGE_PUBLIC_KEY\");\nif (!edgeId || !publicKey) { node.error(\"EDGE_ID OR PUBLIC_KEY MISSING\"); return null; }\nmsg.method = \"POST\";\nmsg.url = \"https://4lvp0dw3hd.execute-api.eu-central-1.amazonaws.com/demo/mp-model-library/save-public-key\";\nmsg.headers = { \"Content-Type\": \"application/json\" };\nmsg.payload = { edgeId, keyId: `${edgeId}#v1`, publicKey, algo: \"ED25519\", registeredAt: Date.now() };\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 830,
-        "y": 80,
-        "wires": [
-            [
-                "c6644585dcde0fe4"
-            ]
-        ]
-    },
-    {
-        "id": "c6644585dcde0fe4",
-        "type": "http request",
-        "z": "e7008fac9d7a2047",
-        "name": "POST Register Edge",
-        "method": "use",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "",
-        "senderr": false,
-        "headers": [],
-        "x": 1090,
-        "y": 80,
-        "wires": [
-            [
-                "fd0d244d40af9ae1"
-            ]
-        ]
-    },
-    {
-        "id": "fd0d244d40af9ae1",
-        "type": "debug",
-        "z": "e7008fac9d7a2047",
-        "name": "Register Edge Response",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1350,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "705607cf67159282",
-        "type": "mqtt in",
-        "z": "e7008fac9d7a2047",
-        "name": "",
-        "topic": "vre/71/recommendations",
-        "qos": "1",
-        "datatype": "json",
-        "broker": "772dccd0d9d724d8",
-        "nl": false,
-        "rap": true,
-        "rh": 0,
-        "inputs": 0,
-        "x": 150,
-        "y": 200,
-        "wires": [
-            [
-                "cb4b748f6a63ebe0"
-            ]
-        ]
-    },
-    {
-        "id": "cb4b748f6a63ebe0",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "⏱ Start Timer",
-        "func": "msg._startTime = Date.now();\nnode.status({ fill: \"blue\", shape: \"ring\", text: `started at ${new Date().toISOString()}` });\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 200,
-        "wires": [
-            [
-                "68ff7d040a79ff10"
-            ]
-        ]
-    },
-    {
-        "id": "68ff7d040a79ff10",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Split Recommendations",
-        "func": "const response = msg.payload;\nnode.warn(response);\nconst list = Array.isArray(response?.data) ? response.data : Array.isArray(response) ? response : response ? [response] : [];\nif (!list.length) { node.warn(\"NO RECOMMENDATIONS FOUND\"); return null; }\nconst messages = list.map(item => {\n    const ai = item;\n    const fields = ai.fields || ai;\n    const recommendationId = ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId, _startTime: msg._startTime };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `${messages.length} recommendations` });\nreturn [messages];",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 690,
-        "y": 200,
-        "wires": [
-            [
-                "f4fb356369ff58b7"
-            ]
-        ]
-    },
-    {
-        "id": "f4fb356369ff58b7",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Store Pending Recommendation",
-        "func": "const fs = global.get(\"fs\");\nconst ai = msg.ai || msg.payload;\nconst fields = ai?.fields || ai;\nconst rec = fields?.recommendation;\nconst verification = rec?.verification;\nif (!ai || !rec || !verification) { node.warn(\"INVALID RECOMMENDATION: fields.recommendation.verification missing\"); return null; }\nconst recommendationId = msg.recommendationId || ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst startMs = Number(verification.observationWindow?.startTime);\nconst endMs = Number(verification.observationWindow?.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID observationWindow FOR ${recommendationId}`); return null; }\nconst now = Date.now();\nif (now >= endMs) {\n    msg.ai = ai; msg.fields = fields; msg.recommendationId = recommendationId; msg.payload = ai;\n    node.status({ fill: \"green\", shape: \"dot\", text: `due now ${recommendationId}` });\n    return msg;\n}\nconst pendingDir = \"/data/pending\";\nconst pendingPath = `${pendingDir}/pending_recommendations.json`;\nif (!fs.existsSync(pendingDir)) fs.mkdirSync(pendingDir, { recursive: true });\nlet pending = [];\nif (fs.existsSync(pendingPath)) {\n    try { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { pending = []; }\n}\npending = pending.filter(x => x.recommendationId !== recommendationId);\npending.push({ recommendationId, pk: ai.pk, sk: ai.sk, startTime: startMs, endTime: endMs, status: \"WAITING_OBSERVATION_WINDOW_END\", receivedAt: now, ai });\npending.sort((a, b) => Number(a.endTime) - Number(b.endTime));\nfs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2));\nnode.status({ fill: \"yellow\", shape: \"ring\", text: `pending ${pending.length}` });\nreturn null;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 690,
-        "y": 300,
-        "wires": [
-            [
-                "6a9848c4015456aa"
-            ]
-        ]
-    },
-    {
-        "id": "24772750068d4835",
-        "type": "inject",
-        "z": "e7008fac9d7a2047",
-        "name": "Check Pending Recommendations",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 200,
-        "y": 380,
-        "wires": [
-            [
-                "72195a4b27dce1de"
-            ]
-        ]
-    },
-    {
-        "id": "72195a4b27dce1de",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Dispatch Due Recommendations",
-        "func": "const fs = global.get(\"fs\");\nconst pendingPath = \"/data/pending/pending_recommendations.json\";\nif (!fs.existsSync(pendingPath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"no pending\" }); return null; }\nlet pending = [];\ntry { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { node.error(\"FAILED TO READ pending_recommendations.json\"); return null; }\nif (!pending.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"pending empty\" }); return null; }\nconst now = Date.now();\nconst due = [], remaining = [];\nfor (const item of pending) {\n    if (Number(item.endTime) && now >= Number(item.endTime)) due.push(item); else remaining.push(item);\n}\nfs.writeFileSync(pendingPath, JSON.stringify(remaining, null, 2));\nif (!due.length) {\n    const next = remaining.filter(x => x.endTime).sort((a,b) => Number(a.endTime)-Number(b.endTime))[0];\n    if (next) node.status({ fill: \"yellow\", shape: \"ring\", text: `next due in ${Math.ceil((Number(next.endTime)-now)/60000)} min` });\n    return null;\n}\nconst messages = due.map(item => {\n    const ai = item.ai; const fields = ai?.fields || ai;\n    const recommendationId = item.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId, dispatchedAt: now, _startTime: Date.now() };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `dispatch ${messages.length}` });\nreturn [messages];",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 200,
-        "y": 440,
-        "wires": [
-            [
-                "6a9848c4015456aa"
-            ]
-        ]
-    },
-    {
-        "id": "6a9848c4015456aa",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Split Verification Rules",
-        "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rules = fields?.recommendation?.verification?.rules || [];\nif (!Array.isArray(rules) || !rules.length) { node.warn(\"NO verification.rules FOUND\"); return null; }\nconst recommendationId = msg.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\nflow.set(`verify:${recommendationId}:expectedCount`, rules.length);\nflow.set(`verify:${recommendationId}:results`, []);\nflow.set(`verify:${recommendationId}:ai`, ai);\nflow.set(`verify:${recommendationId}:startTime`, msg._startTime || Date.now());\nconst messages = rules.map((rule, index) => ({ payload: rule, ai, fields, rule, ruleIndex: index, ruleCount: rules.length, recommendationId, _startTime: msg._startTime }));\nnode.status({ fill: \"green\", shape: \"dot\", text: `${rules.length} rules` });\nreturn [messages];",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 560,
-        "y": 440,
-        "wires": [
-            [
-                "9db072d262f8a592"
-            ]
-        ]
-    },
-    {
-        "id": "9db072d262f8a592",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Read Asset Samples From Cache",
-        "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rule = msg.rule || msg.payload;\nif (!rule?.assetId) { node.warn(\"RULE assetId MISSING\"); return null; }\nconst verification = fields?.recommendation?.verification;\nconst windowName = rule.window || \"observationWindow\";\nconst window = verification?.[windowName] || verification?.observationWindow || {};\nconst startMs = Number(window.startTime);\nconst endMs = Number(window.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID ${windowName} FOR assetId=${rule.assetId}`); return null; }\nconst key = `assetSamples:${rule.assetId}`;\nconst rows = flow.get(key) || global.get(key) || [];\nnode.warn(rows);\nif (!Array.isArray(rows) || !rows.length) {\n    if (rule.required === false) { msg.assetRows = []; msg.rawValues = []; msg.sampleCount = 0; return msg; }\n    node.warn(`NO CACHED SAMPLES FOR ${key}`); return null;\n}\nconst filteredRows = rows.filter(r => {\n    const ts = Number(r.ts ?? r.timestamp ?? r.time);\n    return ts >= startMs && ts < endMs;\n});\nconst rawValues = filteredRows.map(r => r.value);\nif (!rawValues.length && rule.required !== false) { node.warn(`NO SAMPLES IN ${windowName} FOR assetId=${rule.assetId}`); return null; }\nmsg.assetRows = filteredRows; msg.rawValues = rawValues; msg.sampleCount = rawValues.length; msg.windowUsed = { name: windowName, startMs, endMs };\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${rule.assetId} samples=${rawValues.length}` });\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 600,
-        "y": 500,
-        "wires": [
-            [
-                "08d333410f72d476"
-            ]
-        ]
-    },
-    {
-        "id": "08d333410f72d476",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Execute Rule",
-        "func": "const rule = msg.rule || msg.payload;\nif (!rule) { node.warn(\"NO RULE\"); return null; }\nfunction compare(value, operator, target) {\n    if (operator === \">\") return value > target;\n    if (operator === \">=\") return value >= target;\n    if (operator === \"<\") return value < target;\n    if (operator === \"<=\") return value <= target;\n    if (operator === \"==\" || operator === \"=\") return value === target;\n    if (operator === \"!=\") return value !== target;\n    throw new Error(`Unsupported operator: ${operator}`);\n}\nfunction toNumbers(values) { return values.map(v => Number(v)).filter(v => !Number.isNaN(v) && Number.isFinite(v)); }\nfunction filterByCondition(values, condition) {\n    const match = String(condition || \"\").trim().match(/^value\\s*(>=|<=|>|<|==|=|!=)\\s*(-?\\d+(\\.\\d+)?)$/);\n    if (!match) throw new Error(`Unsupported FILTER condition: ${condition}`);\n    return values.filter(v => compare(Number(v), match[1], Number(match[2])));\n}\nfunction aggregate(values, type) {\n    const nums = toNumbers(values);\n    if (type === \"COUNT\") return nums.length;\n    if (!nums.length) throw new Error(`${type} cannot run on empty values`);\n    if (type === \"SUM\") return nums.reduce((a,b)=>a+b,0);\n    if (type === \"AVG\") return nums.reduce((a,b)=>a+b,0) / nums.length;\n    if (type === \"MIN\") return Math.min(...nums);\n    if (type === \"MAX\") return Math.max(...nums);\n    if (type === \"FIRST\") return nums[0];\n    if (type === \"LAST\") return nums[nums.length - 1];\n    throw new Error(`Unsupported aggregation: ${type}`);\n}\nfunction executePipeline(values, pipeline) {\n    let result = Array.isArray(values) ? values.slice() : [];\n    for (const step of pipeline || []) {\n        if (!step?.type) throw new Error(\"Invalid pipeline step\");\n        switch (step.type) {\n            case \"REMOVE_NULLS\": result = result.filter(v => v !== null && v !== undefined && v !== \"\" && !Number.isNaN(Number(v))); break;\n            case \"FILTER\": result = filterByCondition(result, step.condition); break;\n            case \"AVG\": case \"SUM\": case \"MIN\": case \"MAX\": case \"FIRST\": case \"LAST\": case \"COUNT\": result = aggregate(result, step.type); break;\n            default: throw new Error(`Unsupported pipeline step: ${step.type}`);\n        }\n    }\n    return result;\n}\nfunction round(value, digits=4) { return (typeof value === \"number\" && Number.isFinite(value)) ? Number(value.toFixed(digits)) : value; }\nfunction evaluateComparison(observedValue, rule) {\n    const comparison = rule.comparison; const operator = rule.operator; const expected = rule.value;\n    let actualValue = observedValue; let passed = false;\n    if (comparison === \"ABSOLUTE\") passed = compare(observedValue, operator, Number(expected));\n    else if (comparison === \"RANGE\") passed = observedValue >= Number(expected?.min) && observedValue <= Number(expected?.max);\n    else if (comparison === \"PERCENT_DECREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((baseline - observedValue) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"PERCENT_INCREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((observedValue - baseline) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"MAX_DEVIATION_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = Math.abs(observedValue - baseline); passed = compare(actualValue, operator || \"<=\", Number(expected));\n    } else throw new Error(`Unsupported comparison: ${comparison}`);\n    return { passed, actualValue: round(actualValue), expectedValue: expected };\n}\ntry {\n    const pipeline = rule.aggregation?.pipeline || [{ type: \"REMOVE_NULLS\" }, { type: \"AVG\" }];\n    const observedValue = executePipeline(msg.rawValues || [], pipeline);\n    if (Array.isArray(observedValue)) throw new Error(`Pipeline ended with array for assetId=${rule.assetId}. Add final aggregation.`);\n    const comparisonResult = evaluateComparison(Number(observedValue), rule);\n    msg.ruleResult = {\n        recommendationId: msg.recommendationId, assetId: rule.assetId, window: rule.window, required: rule.required !== false,\n        passed: comparisonResult.passed, observedValue: round(Number(observedValue)), comparisonActualValue: comparisonResult.actualValue,\n        expectedValue: comparisonResult.expectedValue, comparison: rule.comparison, operator: rule.operator, baseline: rule.baseline,\n        aggregation: { pipeline, rawSampleCount: msg.sampleCount || 0, filteredRowCount: msg.assetRows?.length || 0 }, windowUsed: msg.windowUsed\n    };\n    msg.payload = msg.ruleResult;\n    node.status({ fill: comparisonResult.passed ? \"green\" : \"red\", shape: \"dot\", text: `${rule.assetId} ${comparisonResult.passed ? \"PASS\" : \"FAIL\"}` });\n    return msg;\n} catch (err) { node.error(`RULE_EXECUTION_ERROR: ${err.message}`); return null; }",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 530,
-        "y": 560,
-        "wires": [
-            [
-                "33f2f5c2d8b966a5"
-            ]
-        ]
-    },
-    {
-        "id": "33f2f5c2d8b966a5",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Accumulate Rule Results",
-        "func": "const recommendationId = msg.recommendationId;\nconst result = msg.ruleResult || msg.payload;\nconst ai = msg.ai || flow.get(`verify:${recommendationId}:ai`);\nif (!recommendationId || !result) { node.warn(\"MISSING recommendationId or rule result\"); return null; }\nconst keyResults = `verify:${recommendationId}:results`;\nconst keyExpected = `verify:${recommendationId}:expectedCount`;\nlet results = flow.get(keyResults) || [];\nconst expectedCount = Number(flow.get(keyExpected) || 0);\nresults = results.filter(r => !(r.assetId === result.assetId && r.comparison === result.comparison));\nresults.push(result);\nflow.set(keyResults, results);\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${results.length}/${expectedCount}` });\nif (!expectedCount || results.length < expectedCount) return null;\nconst requiredResults = results.filter(r => r.required !== false);\nconst optionalResults = results.filter(r => r.required === false);\nconst verified = requiredResults.every(r => r.passed);\nmsg.ai = ai;\nmsg.recommendationId = recommendationId;\nmsg.ruleResults = results;\nmsg.verified = verified;\nmsg.observedMetrics = {};\nmsg.pipelineResults = {};\nfor (const r of results) {\n    msg.observedMetrics[r.assetId] = r.observedValue;\n    msg.pipelineResults[r.assetId] = r.aggregation;\n}\nmsg._startTime = flow.get(`verify:${recommendationId}:startTime`) || msg._startTime;\nflow.set(keyResults, []); flow.set(keyExpected, 0);\nif (!verified) {\n    node.warn({ status: \"NOT_VERIFIED\", recommendationId, requiredResults, optionalResults });\n    return null;\n}\nnode.status({ fill: \"green\", shape: \"dot\", text: `VERIFIED ${recommendationId}` });\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 570,
-        "y": 620,
-        "wires": [
-            [
-                "bb7f28c811382324"
-            ]
-        ]
-    },
-    {
-        "id": "bb7f28c811382324",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Build Generic Proof",
-        "func": "const crypto = global.get(\"crypto\");\nconst ai = msg.ai || {};\nconst fields = ai.fields || ai;\nconst recommendation = fields.recommendation || {};\nif (!msg.verified) { node.warn(\"CANNOT BUILD PROOF: NOT VERIFIED\"); return null; }\nconst recommendationId = msg.recommendationId || ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst metadata = fields.metadata || {};\nmsg.proof = {\n    proofId: crypto.randomUUID(), edgeId: global.get(\"EDGE_ID\"), recommendationId, contractId: fields.contractId,\n    sourceRecord: { pk: ai.pk, sk: ai.sk },\n    recommendation: { title: recommendation.title, type: recommendation.type, expectedImpact: recommendation.expectedImpact, actions: recommendation.actions || [] },\n    wallets: { operatorWallet: metadata.operatorWallet, modelOwnerWallet: metadata.modelOwnerWallet },\n    reward: { operatorPercentage: metadata.operatorPercentage, modelOwnerPercentage: metadata.modelOwnerPercentage },\n    verification: { verificationType: recommendation.verification?.verificationType || \"EDGE_RUNTIME_PIPELINE\", verified: true, observationWindow: recommendation.verification?.observationWindow, executionWindow: recommendation.verification?.executionWindow, observedMetrics: msg.observedMetrics, pipelineResults: msg.pipelineResults, ruleResults: msg.ruleResults, verifiedAt: Date.now() },\n    audit: { createdAt: Date.now(), rawSamplesStored: false }\n};\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 550,
-        "y": 680,
-        "wires": [
-            [
-                "5fb016ce0e8d00af"
-            ]
-        ]
-    },
-    {
-        "id": "5fb016ce0e8d00af",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "SHA256 Hash",
-        "func": "const crypto = global.get(\"crypto\");\nconst proofString = JSON.stringify(msg.proof);\nmsg.hash = crypto.createHash(\"sha256\").update(proofString).digest(\"hex\");\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 540,
-        "y": 740,
-        "wires": [
-            [
-                "761d443d7e2bae68"
-            ]
-        ]
-    },
-    {
-        "id": "761d443d7e2bae68",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Sign Hash",
-        "func": "const crypto = global.get(\"crypto\");\nconst privateKey = global.get(\"EDGE_PRIVATE_KEY\");\nif (!privateKey) { node.error(\"NO PRIVATE KEY\"); return null; }\nconst signature = crypto.sign(null, Buffer.from(msg.hash), privateKey);\nmsg.signature = signature.toString(\"base64\");\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 420,
-        "wires": [
-            [
-                "e7a206a7d65012b9"
-            ]
-        ]
-    },
-    {
-        "id": "e7a206a7d65012b9",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "⏱ End Timer — Log Latency",
-        "func": "const elapsed = Date.now() - (msg._startTime || Date.now());\nconst passed = elapsed < 100;\nnode.warn(`✅ Verification latency: ${elapsed} ms | Target: < 100 ms | Status: ${passed ? 'PASS ✅' : 'FAIL ❌'}`);\nnode.status({\n    fill: passed ? \"green\" : \"red\",\n    shape: \"dot\",\n    text: `${elapsed} ms — ${passed ? 'PASS' : 'FAIL'}`\n});\nmsg.latencyMs = elapsed;\nmsg.latencyTarget = \"< 100 ms\";\nmsg.latencyPassed = passed;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 970,
-        "y": 500,
-        "wires": [
-            [
-                "ad2d6e7b76c54e09",
-                "b42f5aeaf87fa049"
-            ]
-        ]
-    },
-    {
-        "id": "ad2d6e7b76c54e09",
-        "type": "debug",
-        "z": "e7008fac9d7a2047",
-        "name": "⏱ Latency Result (ms)",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": true,
-        "complete": "latencyMs",
-        "targetType": "msg",
-        "statusVal": "latencyMs",
-        "statusType": "msg",
-        "x": 1230,
-        "y": 460,
-        "wires": []
-    },
-    {
-        "id": "b42f5aeaf87fa049",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "EDGE → BACKEND Payload",
-        "func": "if (!msg.proof || !msg.hash || !msg.signature) { node.error(\"MISSING PROOF / HASH / SIGNATURE\"); return null; }\nmsg.payload = JSON.stringify({ proof: msg.proof, hash: msg.hash, signature: msg.signature, edgeId: global.get(\"EDGE_ID\"), algo: \"ED25519\", createdAt: Date.now() });\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 1030,
-        "y": 560,
-        "wires": [
-            [
-                "931421738d27a4c9",
-                "76e2b1d51b77754b"
-            ]
-        ]
-    },
-    {
-        "id": "931421738d27a4c9",
-        "type": "debug",
-        "z": "e7008fac9d7a2047",
-        "name": "FINAL EDGE PAYLOAD",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1330,
-        "y": 520,
-        "wires": []
-    },
-    {
-        "id": "76e2b1d51b77754b",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Queue Or Publish",
-        "func": "const fs = global.get(\"fs\");\nconst queueDir = \"/data/queue\";\nconst queuePath = `${queueDir}/pending_proofs.json`;\nif (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir, { recursive: true });\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) {\n    let queue = [];\n    if (fs.existsSync(queuePath)) queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\n    queue.push({ id: msg.proof?.proofId, payload: msg.payload, topic: \"ocei/demo\", queuedAt: Date.now(), retryCount: 0 });\n    fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\n    node.status({ fill: \"yellow\", shape: \"ring\", text: `queued (${queue.length})` });\n    return null;\n}\nmsg.topic = \"ocei/demo\";\nnode.status({ fill: \"green\", shape: \"dot\", text: \"published\" });\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 990,
-        "y": 620,
-        "wires": [
-            [
-                "b9af0125ccba0bee"
-            ]
-        ]
-    },
-    {
-        "id": "b9af0125ccba0bee",
-        "type": "mqtt out",
-        "z": "e7008fac9d7a2047",
-        "name": "mqtt out(ocei/demo)",
-        "topic": "ocei/demo",
-        "qos": "1",
-        "retain": "",
-        "respTopic": "",
-        "contentType": "",
-        "userProps": "",
-        "correl": "",
-        "expiry": "",
-        "broker": "772dccd0d9d724d8",
-        "x": 1000,
-        "y": 680,
-        "wires": []
-    },
-    {
-        "id": "3ace43cb7437bb26",
-        "type": "status",
-        "z": "e7008fac9d7a2047",
-        "name": "cloud status",
-        "scope": [
-            "b9af0125ccba0bee"
-        ],
-        "x": 130,
-        "y": 800,
-        "wires": [
-            [
-                "817426c83b889ff2"
-            ]
-        ]
-    },
-    {
-        "id": "817426c83b889ff2",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "cloud status control",
-        "func": "const status = (msg.status?.text || \"\").toLowerCase();\nif (status.includes(\"connected\") && !status.includes(\"disconnected\")) {\n    global.set(\"MQTT_CONNECTED\", true);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"MQTT connected\" });\n} else {\n    global.set(\"MQTT_CONNECTED\", false);\n    node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT disconnected\" });\n}\nreturn null;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 800,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c61be1e1f4034c77",
-        "type": "inject",
-        "z": "e7008fac9d7a2047",
-        "name": "Retry Pending Proofs",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "30",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 130,
-        "y": 880,
-        "wires": [
-            [
-                "8ded57e3a5ccb3ec"
-            ]
-        ]
-    },
-    {
-        "id": "8ded57e3a5ccb3ec",
-        "type": "function",
-        "z": "e7008fac9d7a2047",
-        "name": "Retry One Pending Proof",
-        "func": "const fs = global.get(\"fs\");\nconst queuePath = \"/data/queue/pending_proofs.json\";\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) { node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT offline\" }); return null; }\nif (!fs.existsSync(queuePath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nlet queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\nif (!queue.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nconst item = queue.shift();\nfs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\nnode.status({ fill: \"green\", shape: \"dot\", text: `retrying 1, left ${queue.length}` });\nreturn { payload: item.payload, topic: item.topic || \"ocei/demo\" };",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 880,
-        "wires": [
-            [
-                "b9af0125ccba0bee"
-            ]
-        ]
+  {
+    "id": "863be1bd35fec7b8",
+    "type": "tab",
+    "label": "Asset Data Pipeline - Energy 5min (SIM)",
+    "disabled": true,
+    "info": "Every 5 min: generate one energy sample at now, cache it into assetSamples:<assetId>, publish to AWS IoT.",
+    "env": []
+  },
+  {
+    "id": "618d7734aad54e6b",
+    "type": "tab",
+    "label": "VRE Verification Only - Asset Cache",
+    "disabled": false,
+    "info": "Verification-only flow. Reads recommendation.fields.recommendation.verification.rules[].assetId and loads prepared samples from assetSamples:{assetId}. No REST/MQTT/OPCUA/MODBUS datasource mapping here.",
+    "env": []
+  },
+  {
+    "id": "c0196b6b428c5526",
+    "type": "tab",
+    "label": "Asset Data Pipeline - LK Farm (REAL)",
+    "disabled": false
+  },
+  {
+    "id": "5c1e75981cc1510f",
+    "type": "tls-config",
+    "name": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
+    "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
+    "caname": "AmazonRootCA1.pem",
+    "servername": "",
+    "verifyservercert": true,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "772dccd0d9d724d8",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
+    "port": "8883",
+    "tls": "5c1e75981cc1510f",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": 60,
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "0671e55792ed46fc",
+    "type": "tls-config",
+    "name": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
+    "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
+    "caname": "AmazonRootCA1.pem",
+    "servername": "",
+    "verifyservercert": true,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "14d7bc36d0eb4880",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
+    "port": "8883",
+    "tls": "0671e55792ed46fc",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": 60,
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "a1a3292ac2a541cd",
+    "type": "tls-config",
+    "name": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
+    "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
+    "caname": "AmazonRootCA1.pem",
+    "servername": "",
+    "verifyservercert": true,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "92a34462c612431f",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
+    "port": "8883",
+    "tls": "a1a3292ac2a541cd",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": 60,
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "a658c5eebba042db",
+    "type": "tls-config",
+    "name": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "certname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-certificate.pem.crt",
+    "keyname": "f4a06ec9ffcad92eba28c9a182c10f82f8f0e14ced10eca2185b51bb23b259db-private.pem.key",
+    "caname": "AmazonRootCA1.pem",
+    "servername": "",
+    "verifyservercert": true,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "e423bb86993041a4",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "a3ptz1ulbqtz64-ats.iot.eu-central-1.amazonaws.com",
+    "port": "8883",
+    "tls": "a658c5eebba042db",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": 60,
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "b432e1a2c967fae4",
+    "type": "tls-config",
+    "name": "",
+    "cert": "",
+    "key": "",
+    "ca": "",
+    "certname": "certificate.pem.crt.txt",
+    "keyname": "private.pem.key",
+    "caname": "AmazonRootCA1.pem",
+    "servername": "a19qm5gymiylj8-ats.iot.eu-central-1.amazonaws.com",
+    "verifyservercert": true,
+    "alpnprotocol": ""
+  },
+  {
+    "id": "4d9a9d89a4cd3e54",
+    "type": "mqtt-broker",
+    "name": "",
+    "broker": "10.76.30.45",
+    "port": "8883",
+    "tls": "b432e1a2c967fae4",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": true,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": ""
+  },
+  {
+    "id": "c544e4520a59910c",
+    "type": "global-config",
+    "env": [
+      {
+        "name": "ASSET_API_KEY",
+        "value": "zp33G-8VX0htzXC2kBFjN4PBjwYhNqcqDPwNWBiDKOg",
+        "type": "str"
+      },
+      {
+        "name": "ASSET_API_URL",
+        "value": "http://cei-inoe-lkfarm.greensupplychain.eu",
+        "type": "str"
+      },
+      {
+        "name": "CUSTOMER_ID",
+        "value": "71",
+        "type": "num"
+      }
+    ],
+    "modules": {
+      "node-red-contrib-iiot-opcua": "4.1.2"
     }
+  },
+  {
+    "id": "68f4a312f663da7b",
+    "type": "OPCUA-IIoT-Connector",
+    "discoveryUrl": "",
+    "endpoint": "opc.tcp://nias003a.local.:4998/Softing_dataFEED_OPC_Suite_Configuration1",
+    "endpointMustExist": false,
+    "keepSessionAlive": true,
+    "loginEnabled": false,
+    "name": "OPC Server",
+    "showErrors": false,
+    "securityPolicy": "None",
+    "securityMode": "None",
+    "individualCerts": false,
+    "publicCertificateFile": "",
+    "privateKeyFile": "",
+    "defaultSecureTokenLifetime": "",
+    "autoSelectRightEndpoint": false,
+    "strategyMaxRetry": "",
+    "strategyInitialDelay": "",
+    "strategyMaxDelay": "",
+    "strategyRandomisationFactor": "",
+    "requestedSessionTimeout": "",
+    "connectionStartDelay": "",
+    "reconnectDelay": "",
+    "maxBadSessionRequests": "10"
+  },
+  {
+    "id": "19be19f9b3707389",
+    "type": "inject",
+    "z": "863be1bd35fec7b8",
+    "name": "5min Poll",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "300",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "1",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 170,
+    "y": 60,
+    "wires": [
+      [
+        "8fdb58c9ad1fbaeb"
+      ]
+    ]
+  },
+  {
+    "id": "8fdb58c9ad1fbaeb",
+    "type": "function",
+    "z": "863be1bd35fec7b8",
+    "name": "Set Energy Asset Mapping",
+    "func": "msg.assetMapping = {\n    assetId: \"1780305924234\",\n    customerId: 71,\n    source: \"SIM_ENERGY_5MIN\",\n    unit: \"kWh\",\n    sourceDeviceId: \"15\",\n    responsePath: \"data\",\n    timestampField: \"ts\",\n    valueField: \"energy_kwh\"\n};\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 180,
+    "y": 120,
+    "wires": [
+      [
+        "5dd753fdaf7f68ec"
+      ]
+    ]
+  },
+  {
+    "id": "5dd753fdaf7f68ec",
+    "type": "function",
+    "z": "863be1bd35fec7b8",
+    "name": "Generate Sample",
+    "func": "\nconst ts = Math.floor(Date.now() / 1000);\nconst energy_kwh = Number((0.5 + Math.random() * 1.5).toFixed(4));\n\nmsg.payload = { data: [ { ts, energy_kwh } ] };\n\nnode.status({ fill: \"grey\", shape: \"ring\", text: `${energy_kwh} kWh @ ${new Date(ts*1000).toLocaleTimeString()}` });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 170,
+    "y": 180,
+    "wires": [
+      [
+        "4ea575c6d7ba67ec"
+      ]
+    ]
+  },
+  {
+    "id": "4ea575c6d7ba67ec",
+    "type": "function",
+    "z": "863be1bd35fec7b8",
+    "name": "Normalize + Cache + Build Backend Payload",
+    "func": "const mapping = msg.assetMapping;\nif (!mapping?.assetId) {\n    node.warn(\"assetMapping.assetId missing\");\n    return null;\n}\n\nfunction toMillis(rawTs) {\n    if (rawTs === null || rawTs === undefined || rawTs === \"\") return NaN;\n    if (typeof rawTs === \"number\") return rawTs < 100000000000 ? rawTs * 1000 : rawTs;\n    const n = Number(rawTs);\n    if (!Number.isNaN(n) && Number.isFinite(n)) return n < 100000000000 ? n * 1000 : n;\n    return new Date(rawTs).getTime();\n}\n\nconst rows = Array.isArray(msg.payload?.data) ? msg.payload.data : [];\nif (!rows.length) {\n    node.warn(\"NO ROWS\");\n    return null;\n}\n\nconst tsField = mapping.timestampField || \"ts\";\nconst valueField = mapping.valueField || \"energy_kwh\";\n\nconst samples = rows\n    .map(r => {\n        const ts = toMillis(r[tsField]);\n        const value = Number(r[valueField]);\n        if (!ts || Number.isNaN(ts) || Number.isNaN(value) || !Number.isFinite(value)) return null;\n        return {\n            ts,\n            value,\n            assetId: mapping.assetId,\n            customerId: mapping.customerId,\n            unit: mapping.unit,\n            sourceDeviceId: mapping.sourceDeviceId,\n            source: mapping.source,\n            rawTimestamp: r[tsField]\n        };\n    })\n    .filter(Boolean)\n    .sort((a, b) => a.ts - b.ts);\n\nif (!samples.length) {\n    node.warn(\"NO VALID SAMPLES\");\n    return null;\n}\n\nconst cacheKey = `assetSamples:${mapping.assetId}`;\nconst now = Date.now();\nconst maxAgeMs = 90 * 24 * 60 * 60 * 1000;\nconst existing = flow.get(cacheKey) || global.get(cacheKey) || [];\nconst byTs = new Map();\n\nfor (const s of existing) {\n    if (s?.ts && now - Number(s.ts) <= maxAgeMs) byTs.set(Number(s.ts), s);\n}\nfor (const s of samples) {\n    if (now - Number(s.ts) <= maxAgeMs) byTs.set(Number(s.ts), s);\n}\n\nconst merged = Array.from(byTs.values()).sort((a, b) => Number(a.ts) - Number(b.ts));\nflow.set(cacheKey, merged);\nglobal.set(cacheKey, merged);\n\nconst oneYearSeconds = 365 * 24 * 60 * 60;\nconst backendRecords = samples.map(s => {\n    const t = Math.floor(Number(s.ts) / 1000);\n    return {\n        asset_id: mapping.assetId,\n        timestamp: t,\n        customer_id: mapping.customerId || 71,\n        ttl: t + oneYearSeconds,\n        val: s.value\n    };\n});\n\nmsg.normalizedPayload = backendRecords;\nmsg.payload = backendRecords;\n\nnode.status({ fill: \"green\", shape: \"dot\", text: `cached=${merged.length} post=${backendRecords.length}` });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 230,
+    "y": 260,
+    "wires": [
+      [
+        "9126517369022aa4",
+        "79ec79ca0766e390"
+      ]
+    ]
+  },
+  {
+    "id": "9126517369022aa4",
+    "type": "debug",
+    "z": "863be1bd35fec7b8",
+    "name": "Normalized Records",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "normalizedPayload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 340,
+    "wires": []
+  },
+  {
+    "id": "79ec79ca0766e390",
+    "type": "mqtt out",
+    "z": "863be1bd35fec7b8",
+    "name": "ocei_data/demo",
+    "topic": "ocei_data/demo",
+    "qos": "1",
+    "retain": "",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "772dccd0d9d724d8",
+    "x": 620,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "41b5a813f91640ce",
+    "type": "inject",
+    "z": "618d7734aad54e6b",
+    "name": "Startup - Init Edge",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "0.5",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 150,
+    "y": 20,
+    "wires": [
+      [
+        "6315f43a28dc4da4"
+      ]
+    ]
+  },
+  {
+    "id": "6315f43a28dc4da4",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "ED25519 Init",
+    "func": "const fs = global.get(\"fs\");\nconst crypto = global.get(\"crypto\");\nconst keyDir = \"/data/keys\";\nconst privPath = keyDir + \"/edge_private.pem\";\nconst pubPath = keyDir + \"/edge_public.pem\";\nif (!fs.existsSync(keyDir)) fs.mkdirSync(keyDir, { recursive: true });\nlet privatePem, publicPem;\nif (!fs.existsSync(privPath)) {\n    const { publicKey, privateKey } = crypto.generateKeyPairSync(\"ed25519\");\n    privatePem = privateKey.export({ type: \"pkcs8\", format: \"pem\" });\n    publicPem = publicKey.export({ type: \"spki\", format: \"pem\" });\n    fs.writeFileSync(privPath, privatePem);\n    fs.writeFileSync(pubPath, publicPem);\n    node.warn(\"ED25519 keys generated\");\n} else {\n    privatePem = fs.readFileSync(privPath, \"utf8\");\n    publicPem = fs.readFileSync(pubPath, \"utf8\");\n    node.warn(\"ED25519 keys loaded\");\n}\nglobal.set(\"EDGE_PRIVATE_KEY\", privatePem);\nglobal.set(\"EDGE_PUBLIC_KEY\", publicPem);\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 370,
+    "y": 20,
+    "wires": [
+      [
+        "50f5f13f5b1143fb"
+      ]
+    ]
+  },
+  {
+    "id": "50f5f13f5b1143fb",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Assign Edge Id",
+    "func": "const edgeId = \"edge_Netherlands_1\";\nglobal.set(\"EDGE_ID\", edgeId);\nnode.status({ fill: \"green\", shape: \"dot\", text: `READY: ${edgeId}` });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 590,
+    "y": 20,
+    "wires": [
+      [
+        "ae4ec156491749c3"
+      ]
+    ]
+  },
+  {
+    "id": "ae4ec156491749c3",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Register Edge Public Key",
+    "func": "const edgeId = global.get(\"EDGE_ID\");\nconst publicKey = global.get(\"EDGE_PUBLIC_KEY\");\nif (!edgeId || !publicKey) { node.error(\"EDGE_ID OR PUBLIC_KEY MISSING\"); return null; }\nmsg.method = \"POST\";\nmsg.url = \"https://4lvp0dw3hd.execute-api.eu-central-1.amazonaws.com/demo/mp-model-library/save-public-key\";\nmsg.headers = { \"Content-Type\": \"application/json\" };\nmsg.payload = { edgeId, keyId: `${edgeId}#v1`, publicKey, algo: \"ED25519\", registeredAt: Date.now() };\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 830,
+    "y": 20,
+    "wires": [
+      [
+        "751b199d292d4504"
+      ]
+    ]
+  },
+  {
+    "id": "751b199d292d4504",
+    "type": "http request",
+    "z": "618d7734aad54e6b",
+    "name": "POST Register Edge",
+    "method": "use",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "insecureHTTPParser": false,
+    "authType": "",
+    "senderr": false,
+    "headers": [],
+    "x": 1090,
+    "y": 20,
+    "wires": [
+      [
+        "7e3eacb6a5fa46ef"
+      ]
+    ]
+  },
+  {
+    "id": "7e3eacb6a5fa46ef",
+    "type": "debug",
+    "z": "618d7734aad54e6b",
+    "name": "Register Edge Response",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1350,
+    "y": 20,
+    "wires": []
+  },
+  {
+    "id": "373dd2dd991a4017",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Split Recommendations",
+    "func": "const response = msg.payload.item;\nglobal.set(\"customer\",msg.payload.customer)\nnode.warn(response);\nnode.warn(msg);\nconst list = Array.isArray(response?.data) ? response.data : Array.isArray(response) ? response : response ? [response] : [];\nif (!list.length) { node.warn(\"NO RECOMMENDATIONS FOUND\"); return null; }\nconst messages = list.map(item => {\n    const ai = item;\n    const fields = ai.fields || ai;\n    const recommendationId = ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `${messages.length} recommendations` });\nreturn [messages];",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 470,
+    "y": 100,
+    "wires": [
+      [
+        "d400948dccc34d01"
+      ]
+    ]
+  },
+  {
+    "id": "d400948dccc34d01",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Store Pending Recommendation",
+    "func": "const fs = global.get(\"fs\");\nconst ai = msg.ai || msg.payload;\nnode.warn(ai);\nconst fields = ai?.fields || ai;\nnode.warn(fields);\nconst rec = fields?.recommendation;\nnode.warn(rec);\nconst verification = rec?.verification;\nnode.warn(verification);\nif (!ai || !rec || !verification) { node.warn(\"INVALID RECOMMENDATION: fields.recommendation.verification missing\"); return null; }\nconst recommendationId = msg.recommendationId || ai.recommendationId || `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst startMs = Number(verification.observationWindow?.startTime);\nconst endMs = Number(verification.observationWindow?.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID observationWindow FOR ${recommendationId}`); return null; }\nconst now = Date.now();\nif (now >= endMs) {\n    msg.ai = ai; msg.fields = fields; msg.recommendationId = recommendationId; msg.payload = ai;\n    node.status({ fill: \"green\", shape: \"dot\", text: `due now ${recommendationId}` });\n    return msg;\n}\nconst pendingDir = \"/data/pending\";\nconst pendingPath = `${pendingDir}/pending_recommendations.json`;\nif (!fs.existsSync(pendingDir)) fs.mkdirSync(pendingDir, { recursive: true });\nlet pending = [];\nif (fs.existsSync(pendingPath)) {\n    try { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { pending = []; }\n}\npending = pending.filter(x => x.recommendationId !== recommendationId);\npending.push({ recommendationId, pk: ai.pk, sk: ai.sk, startTime: startMs, endTime: endMs, status: \"WAITING_OBSERVATION_WINDOW_END\", receivedAt: now, ai });\npending.sort((a, b) => Number(a.endTime) - Number(b.endTime));\nfs.writeFileSync(pendingPath, JSON.stringify(pending, null, 2));\nnode.status({ fill: \"yellow\", shape: \"ring\", text: `pending ${pending.length}` });\nreturn null;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 770,
+    "y": 100,
+    "wires": [
+      [
+        "ce3543b3c50a4b80"
+      ]
+    ]
+  },
+  {
+    "id": "4c0f5fe821484c4d",
+    "type": "inject",
+    "z": "618d7734aad54e6b",
+    "name": "Check Pending Recommendations",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "30",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "3",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 200,
+    "y": 220,
+    "wires": [
+      [
+        "5b1db7fc0e7c48d1"
+      ]
+    ]
+  },
+  {
+    "id": "5b1db7fc0e7c48d1",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Dispatch Due Recommendations",
+    "func": "const fs = global.get(\"fs\");\nconst pendingPath = \"/data/pending/pending_recommendations.json\";\nif (!fs.existsSync(pendingPath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"no pending\" }); return null; }\nlet pending = [];\ntry { pending = JSON.parse(fs.readFileSync(pendingPath, \"utf8\") || \"[]\"); } catch (err) { node.error(\"FAILED TO READ pending_recommendations.json\"); return null; }\nif (!pending.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"pending empty\" }); return null; }\nconst now = Date.now();\nconst due = [], remaining = [];\nfor (const item of pending) {\n    if (Number(item.endTime) && now >= Number(item.endTime)) due.push(item); else remaining.push(item);\n}\nfs.writeFileSync(pendingPath, JSON.stringify(remaining, null, 2));\nif (!due.length) {\n    const next = remaining.filter(x => x.endTime).sort((a,b) => Number(a.endTime)-Number(b.endTime))[0];\n    if (next) node.status({ fill: \"yellow\", shape: \"ring\", text: `next due in ${Math.ceil((Number(next.endTime)-now)/60000)} min` });\n    return null;\n}\nconst messages = due.map(item => {\n    const ai = item.ai; const fields = ai?.fields || ai;\n    const recommendationId = item.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\n    return { payload: ai, ai, fields, recommendationId, dispatchedAt: now };\n});\nnode.status({ fill: \"green\", shape: \"dot\", text: `dispatch ${messages.length}` });\nreturn [messages];",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 200,
+    "y": 280,
+    "wires": [
+      [
+        "ce3543b3c50a4b80"
+      ]
+    ]
+  },
+  {
+    "id": "ce3543b3c50a4b80",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Split Verification Rules",
+    "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rules = fields?.recommendation?.verification?.rules || [];\nif (!Array.isArray(rules) || !rules.length) { node.warn(\"NO verification.rules FOUND\"); return null; }\nconst recommendationId = msg.recommendationId || ai?.recommendationId || `${ai?.pk || \"PredictiveModelResult\"}#${ai?.sk || Date.now()}`;\nflow.set(`verify:${recommendationId}:expectedCount`, rules.length);\nflow.set(`verify:${recommendationId}:results`, []);\nflow.set(`verify:${recommendationId}:ai`, ai);\nconst messages = rules.map((rule, index) => ({ payload: rule, ai, fields, rule, ruleIndex: index, ruleCount: rules.length, recommendationId }));\nnode.status({ fill: \"green\", shape: \"dot\", text: `${rules.length} rules` });\nreturn [messages];",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 560,
+    "y": 280,
+    "wires": [
+      [
+        "4a4fa8ae54c74768"
+      ]
+    ]
+  },
+  {
+    "id": "4a4fa8ae54c74768",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Read Asset Samples From Cache",
+    "func": "const ai = msg.ai || msg.payload;\nconst fields = msg.fields || ai?.fields || ai;\nconst rule = msg.rule || msg.payload;\nif (!rule?.assetId) { node.warn(\"RULE assetId MISSING\"); return null; }\nconst verification = fields?.recommendation?.verification;\nconst windowName = rule.window || \"observationWindow\";\nconst window = verification?.[windowName] || verification?.observationWindow || {};\nconst startMs = Number(window.startTime);\nconst endMs = Number(window.endTime);\nif (!startMs || !endMs || Number.isNaN(startMs) || Number.isNaN(endMs) || endMs <= startMs) { node.warn(`INVALID ${windowName} FOR assetId=${rule.assetId}`); return null; }\nconst key = `assetSamples:${rule.assetId}`;\nconst rows = flow.get(key) || global.get(key) || [];\nif (!Array.isArray(rows) || !rows.length) {\n    if (rule.required === false) { msg.assetRows = []; msg.rawValues = []; msg.sampleCount = 0; return msg; }\n    node.warn(`NO CACHED SAMPLES FOR ${key}`); return null;\n}\nconst filteredRows = rows.filter(r => {\n    const ts = Number(r.ts ?? r.timestamp ?? r.time);\n    return ts >= startMs && ts < endMs;\n});\nconst rawValues = filteredRows.map(r => r.value);\nif (!rawValues.length && rule.required !== false) { node.warn(`NO SAMPLES IN ${windowName} FOR assetId=${rule.assetId}`); return null; }\nmsg.assetRows = filteredRows; msg.rawValues = rawValues; msg.sampleCount = rawValues.length; msg.windowUsed = { name: windowName, startMs, endMs };\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${rule.assetId} samples=${rawValues.length}` });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 600,
+    "y": 340,
+    "wires": [
+      [
+        "63d4a278241446ae"
+      ]
+    ]
+  },
+  {
+    "id": "63d4a278241446ae",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Execute Rule",
+    "func": "\nconst rule = msg.rule || msg.payload;\nif (!rule) { node.warn(\"NO RULE\"); return null; }\nfunction compare(value, operator, target) {\n    if (operator === \">\") return value > target;\n    if (operator === \">=\") return value >= target;\n    if (operator === \"<\") return value < target;\n    if (operator === \"<=\") return value <= target;\n    if (operator === \"==\" || operator === \"=\") return value === target;\n    if (operator === \"!=\") return value !== target;\n    throw new Error(`Unsupported operator: ${operator}`);\n}\nfunction toNumbers(values) { return values.map(v => Number(v)).filter(v => !Number.isNaN(v) && Number.isFinite(v)); }\nfunction filterByCondition(values, condition) {\n    const match = String(condition || \"\").trim().match(/^value\\s*(>=|<=|>|<|==|=|!=)\\s*(-?\\d+(\\.\\d+)?)$/);\n    if (!match) throw new Error(`Unsupported FILTER condition: ${condition}`);\n    return values.filter(v => compare(Number(v), match[1], Number(match[2])));\n}\nfunction aggregate(values, type) {\n    const nums = toNumbers(values);\n    if (type === \"COUNT\") return nums.length;\n    if (!nums.length) throw new Error(`${type} cannot run on empty values`);\n    if (type === \"SUM\") return nums.reduce((a,b)=>a+b,0);\n    if (type === \"AVG\") return nums.reduce((a,b)=>a+b,0) / nums.length;\n    if (type === \"MIN\") return Math.min(...nums);\n    if (type === \"MAX\") return Math.max(...nums);\n    if (type === \"FIRST\") return nums[0];\n    if (type === \"LAST\") return nums[nums.length - 1];\n    throw new Error(`Unsupported aggregation: ${type}`);\n}\nfunction executePipeline(values, pipeline) {\n    let result = Array.isArray(values) ? values.slice() : [];\n    for (const step of pipeline || []) {\n        if (!step?.type) throw new Error(\"Invalid pipeline step\");\n        switch (step.type) {\n            case \"REMOVE_NULLS\": result = result.filter(v => v !== null && v !== undefined && v !== \"\" && !Number.isNaN(Number(v))); break;\n            case \"FILTER\": result = filterByCondition(result, step.condition); break;\n            case \"AVG\": case \"SUM\": case \"MIN\": case \"MAX\": case \"FIRST\": case \"LAST\": case \"COUNT\": result = aggregate(result, step.type); break;\n            default: throw new Error(`Unsupported pipeline step: ${step.type}`);\n        }\n    }\n    return result;\n}\nfunction round(value, digits=4) { return (typeof value === \"number\" && Number.isFinite(value)) ? Number(value.toFixed(digits)) : value; }\nfunction evaluateComparison(observedValue, rule) {\n    const comparison = rule.comparison; const operator = rule.operator; const expected = rule.value;\n    let actualValue = observedValue; let passed = false;\n    if (comparison === \"ABSOLUTE\") passed = compare(observedValue, operator, Number(expected));\n    else if (comparison === \"RANGE\") passed = observedValue >= Number(expected?.min) && observedValue <= Number(expected?.max);\n    else if (comparison === \"PERCENT_DECREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((baseline - observedValue) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"PERCENT_INCREASE_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (!baseline || Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = ((observedValue - baseline) / baseline) * 100; passed = compare(actualValue, operator || \">=\", Number(expected));\n    } else if (comparison === \"MAX_DEVIATION_FROM_BASELINE\") {\n        const baseline = Number(rule.baseline?.value); if (Number.isNaN(baseline)) throw new Error(`Invalid baseline for assetId=${rule.assetId}`);\n        actualValue = Math.abs(observedValue - baseline); passed = compare(actualValue, operator || \"<=\", Number(expected));\n    } else throw new Error(`Unsupported comparison: ${comparison}`);\n    return { passed, actualValue: round(actualValue), expectedValue: expected };\n}\ntry {\n    const pipeline = rule.aggregation?.pipeline || [{ type: \"REMOVE_NULLS\" }, { type: \"AVG\" }];\n    const observedValue = executePipeline(msg.rawValues || [], pipeline);\n    if (Array.isArray(observedValue)) throw new Error(`Pipeline ended with array for assetId=${rule.assetId}. Add final aggregation.`);\n    const comparisonResult = evaluateComparison(Number(observedValue), rule);\n    msg.ruleResult = {\n        recommendationId: msg.recommendationId, assetId: rule.assetId, window: rule.window, required: rule.required !== false,\n        passed: comparisonResult.passed, observedValue: round(Number(observedValue)), comparisonActualValue: comparisonResult.actualValue,\n        expectedValue: comparisonResult.expectedValue, comparison: rule.comparison, operator: rule.operator, baseline: rule.baseline,\n        aggregation: { pipeline, rawSampleCount: msg.sampleCount || 0, filteredRowCount: msg.assetRows?.length || 0 }, windowUsed: msg.windowUsed\n    };\n    msg.payload = msg.ruleResult;\n    node.status({ fill: comparisonResult.passed ? \"green\" : \"red\", shape: \"dot\", text: `${rule.assetId} ${comparisonResult.passed ? \"PASS\" : \"FAIL\"}` });\n    return msg;\n} catch (err) { node.error(`RULE_EXECUTION_ERROR: ${err.message}`); return null; }\n",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 530,
+    "y": 400,
+    "wires": [
+      [
+        "db54ec8d15a04fbb"
+      ]
+    ]
+  },
+  {
+    "id": "db54ec8d15a04fbb",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Accumulate Rule Results",
+    "func": "const recommendationId = msg.recommendationId;\nconst result = msg.ruleResult || msg.payload;\nconst ai = msg.ai || flow.get(`verify:${recommendationId}:ai`);\nif (!recommendationId || !result) { node.warn(\"MISSING recommendationId or rule result\"); return null; }\nconst keyResults = `verify:${recommendationId}:results`;\nconst keyExpected = `verify:${recommendationId}:expectedCount`;\nlet results = flow.get(keyResults) || [];\nconst expectedCount = Number(flow.get(keyExpected) || 0);\nresults = results.filter(r => !(r.assetId === result.assetId && r.comparison === result.comparison));\nresults.push(result);\nflow.set(keyResults, results);\nnode.status({ fill: \"blue\", shape: \"dot\", text: `${results.length}/${expectedCount}` });\nif (!expectedCount || results.length < expectedCount) return null;\nconst requiredResults = results.filter(r => r.required !== false);\nconst optionalResults = results.filter(r => r.required === false);\nconst verified = requiredResults.every(r => r.passed);\nmsg.ai = ai;\nmsg.recommendationId = recommendationId;\nmsg.ruleResults = results;\nmsg.verified = verified;\nmsg.observedMetrics = {};\nmsg.pipelineResults = {};\nfor (const r of results) {\n    msg.observedMetrics[r.assetId] = r.observedValue;\n    msg.pipelineResults[r.assetId] = r.aggregation;\n}\nflow.set(keyResults, []); flow.set(keyExpected, 0);\nif (!verified) {\n    node.warn({ status: \"NOT_VERIFIED\", recommendationId, requiredResults, optionalResults });\n    return null;\n}\nnode.status({ fill: \"green\", shape: \"dot\", text: `VERIFIED ${recommendationId}` });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 570,
+    "y": 460,
+    "wires": [
+      [
+        "45838105010841d5"
+      ]
+    ]
+  },
+  {
+    "id": "45838105010841d5",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Build Generic Proof",
+    "func": "const crypto = global.get(\"crypto\");\nconst ai = msg.ai || {};\nconst fields = ai.fields || ai;\nconst recommendation = fields.recommendation || {};\nconst customer = global.get(\"customer\")\nif (!msg.verified) { node.warn(\"CANNOT BUILD PROOF: NOT VERIFIED\"); return null; }\n\nconst recommendationId = msg.recommendationId || ai.recommendationId ||\n    `${ai.pk || \"PredictiveModelResult\"}#${ai.sk || Date.now()}`;\nconst metadata = fields.metadata || {};\n\nconst energyRule = (msg.ruleResults || []).find(r => r.required === true);\n\nlet impact;\nconst baseline = Number(energyRule.baseline?.value ?? 0);\nconst observed = Number(energyRule.observedValue ?? 0);\nconst energyDelta = baseline - observed;\nconst percentChange = Number(energyRule.comparisonActualValue ?? 0);\nimpact = {\n    energyDelta,\n    percentChange,\n    observedValue: observed,\n    baselineValue: baseline,\n    baselineUnit: energyRule.baseline?.unit ?? null,\n    comparison: energyRule.comparison,\n};\n\n\nmsg.proof = {\n    proofId: crypto.randomUUID(),\n    edgeId: global.get(\"EDGE_ID\"),\n    recommendationId,\n    contractId: fields.contractId,\n    sourceRecord: { pk: ai.pk, sk: ai.sk },\n    customer: customer,\n    recommendation: {\n        title: recommendation.title,\n        type: recommendation.type,\n        expectedImpact: recommendation.expectedImpact,\n        actions: recommendation.actions || []\n    },\n    wallets: {\n        operatorWallet: metadata.operatorWallet,\n        modelOwnerWallet: metadata.modelOwnerWallet\n    },\n    reward: {\n        operatorPercentage: metadata.operatorPercentage,\n        modelOwnerPercentage: metadata.modelOwnerPercentage\n    },\n    verification: {\n        verificationType: recommendation.verification?.verificationType || \"EDGE_RUNTIME_PIPELINE\",\n        verified: true,\n        observationWindow: recommendation.verification?.observationWindow,\n        executionWindow: recommendation.verification?.executionWindow,\n        observedMetrics: msg.observedMetrics,\n        pipelineResults: msg.pipelineResults,\n        ruleResults: msg.ruleResults,\n        verifiedAt: Date.now()\n    },\n    impact,\n    audit: {\n        createdAt: Date.now(),\n        rawSamplesStored: false\n    }\n};\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 550,
+    "y": 520,
+    "wires": [
+      [
+        "e569f46f9f6c4cbd"
+      ]
+    ]
+  },
+  {
+    "id": "e569f46f9f6c4cbd",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "SHA256 Hash",
+    "func": "const crypto = global.get(\"crypto\");\nconst proofString = JSON.stringify(msg.proof);\nmsg.hash = crypto.createHash(\"sha256\").update(proofString).digest(\"hex\");\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 540,
+    "y": 580,
+    "wires": [
+      [
+        "c12d0d5ea61645d4"
+      ]
+    ]
+  },
+  {
+    "id": "c12d0d5ea61645d4",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Sign Hash",
+    "func": "const crypto = global.get(\"crypto\");\nconst privateKey = global.get(\"EDGE_PRIVATE_KEY\");\nif (!privateKey) { node.error(\"NO PRIVATE KEY\"); return null; }\nconst signature = crypto.sign(null, Buffer.from(msg.hash), privateKey);\nmsg.signature = signature.toString(\"base64\");\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 970,
+    "y": 260,
+    "wires": [
+      [
+        "f7a400469ffa4fd6"
+      ]
+    ]
+  },
+  {
+    "id": "f7a400469ffa4fd6",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "EDGE → BACKEND Payload",
+    "func": "if (!msg.proof || !msg.hash || !msg.signature) { node.error(\"MISSING PROOF / HASH / SIGNATURE\"); return null; }\nmsg.payload = JSON.stringify({ proof: msg.proof, hash: msg.hash, signature: msg.signature, edgeId: global.get(\"EDGE_ID\"), algo: \"ED25519\", createdAt: Date.now() });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1030,
+    "y": 320,
+    "wires": [
+      [
+        "8c72a4b4ffbb4b69",
+        "a2985f70639244d2"
+      ]
+    ]
+  },
+  {
+    "id": "8c72a4b4ffbb4b69",
+    "type": "debug",
+    "z": "618d7734aad54e6b",
+    "name": "FINAL EDGE PAYLOAD",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1330,
+    "y": 280,
+    "wires": []
+  },
+  {
+    "id": "a2985f70639244d2",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Queue Or Publish",
+    "func": "const fs = global.get(\"fs\");\nconst queueDir = \"/data/queue\";\nconst queuePath = `${queueDir}/pending_proofs.json`;\nif (!fs.existsSync(queueDir)) fs.mkdirSync(queueDir, { recursive: true });\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) {\n    let queue = [];\n    if (fs.existsSync(queuePath)) queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\n    queue.push({ id: msg.proof?.proofId, payload: msg.payload, topic: \"ocei/demo\", queuedAt: Date.now(), retryCount: 0 });\n    fs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\n    node.status({ fill: \"yellow\", shape: \"ring\", text: `queued (${queue.length})` });\n    return null;\n}\nmsg.topic = \"ocei/demo\";\nnode.status({ fill: \"green\", shape: \"dot\", text: \"published\" });\nreturn msg;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 990,
+    "y": 380,
+    "wires": [
+      [
+        "6c63cc00dc61465b"
+      ]
+    ]
+  },
+  {
+    "id": "6c63cc00dc61465b",
+    "type": "mqtt out",
+    "z": "618d7734aad54e6b",
+    "name": "mqtt out(ocei/demo)",
+    "topic": "ocei/demo",
+    "qos": "1",
+    "retain": "",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "772dccd0d9d724d8",
+    "x": 1000,
+    "y": 440,
+    "wires": []
+  },
+  {
+    "id": "fa569b8ddbd04cb4",
+    "type": "status",
+    "z": "618d7734aad54e6b",
+    "name": "cloud status",
+    "scope": [
+      "6c63cc00dc61465b"
+    ],
+    "x": 130,
+    "y": 640,
+    "wires": [
+      [
+        "e7aabc17ae4e42a3"
+      ]
+    ]
+  },
+  {
+    "id": "e7aabc17ae4e42a3",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "cloud status control",
+    "func": "const status = (msg.status?.text || \"\").toLowerCase();\nif (status.includes(\"connected\") && !status.includes(\"disconnected\")) {\n    global.set(\"MQTT_CONNECTED\", true);\n    node.status({ fill: \"green\", shape: \"dot\", text: \"MQTT connected\" });\n} else {\n    global.set(\"MQTT_CONNECTED\", false);\n    node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT disconnected\" });\n}\nreturn null;",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 400,
+    "y": 640,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "1e12bd402d414393",
+    "type": "inject",
+    "z": "618d7734aad54e6b",
+    "name": "Retry Pending Proofs",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "30",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "5",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 130,
+    "y": 720,
+    "wires": [
+      [
+        "f50fc484fa6a44e7"
+      ]
+    ]
+  },
+  {
+    "id": "f50fc484fa6a44e7",
+    "type": "function",
+    "z": "618d7734aad54e6b",
+    "name": "Retry One Pending Proof",
+    "func": "const fs = global.get(\"fs\");\nconst queuePath = \"/data/queue/pending_proofs.json\";\nconst mqttConnected = global.get(\"MQTT_CONNECTED\");\nif (!mqttConnected) { node.status({ fill: \"red\", shape: \"ring\", text: \"MQTT offline\" }); return null; }\nif (!fs.existsSync(queuePath)) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nlet queue = JSON.parse(fs.readFileSync(queuePath, \"utf8\") || \"[]\");\nif (!queue.length) { node.status({ fill: \"grey\", shape: \"ring\", text: \"queue empty\" }); return null; }\nconst item = queue.shift();\nfs.writeFileSync(queuePath, JSON.stringify(queue, null, 2));\nnode.status({ fill: \"green\", shape: \"dot\", text: `retrying 1, left ${queue.length}` });\nreturn { payload: item.payload, topic: item.topic || \"ocei/demo\" };",
+    "outputs": 1,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 400,
+    "y": 720,
+    "wires": [
+      [
+        "6c63cc00dc61465b"
+      ]
+    ]
+  },
+  {
+    "id": "3923bbc28d495267",
+    "type": "mqtt in",
+    "z": "618d7734aad54e6b",
+    "name": "",
+    "topic": "vre/71/recommendations",
+    "qos": "1",
+    "datatype": "json",
+    "broker": "772dccd0d9d724d8",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 100,
+    "wires": [
+      [
+        "373dd2dd991a4017"
+      ]
+    ]
+  },
+  {
+    "id": "59653c6255c4c3cc",
+    "type": "inject",
+    "z": "c0196b6b428c5526",
+    "name": "Every Hour",
+    "repeat": "3600",
+    "once": true,
+    "onceDelay": 3,
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "911bccead36e8e50"
+      ]
+    ]
+  },
+  {
+    "id": "a88e7b2169a8b91c",
+    "type": "inject",
+    "z": "c0196b6b428c5526",
+    "name": "Manual Trigger",
+    "repeat": "",
+    "once": false,
+    "payload": "",
+    "payloadType": "date",
+    "x": 120,
+    "y": 220,
+    "wires": [
+      [
+        "911bccead36e8e50"
+      ]
+    ]
+  },
+  {
+    "id": "5f4ff783cad3f3d9",
+    "type": "inject",
+    "z": "c0196b6b428c5526",
+    "name": "Clear Cache",
+    "repeat": "",
+    "once": false,
+    "payload": "",
+    "payloadType": "date",
+    "x": 110,
+    "y": 640,
+    "wires": [
+      [
+        "4c6d45e5a8826d8b"
+      ]
+    ]
+  },
+  {
+    "id": "4c6d45e5a8826d8b",
+    "type": "function",
+    "z": "c0196b6b428c5526",
+    "name": "Clear All Caches",
+    "func": "['lkfarm_energy_cache','lkfarm_trh2_cache','lkfarm_trh4_cache',\n 'lkfarm_energy_published','lkfarm_trh2_published','lkfarm_trh4_published',\n 'lkfarm_energy_acc','lkfarm_trh2_acc','lkfarm_trh4_acc']\n.forEach(k => global.set(k, []));\nnode.status({ fill:'yellow', shape:'ring', text:'cleared' });\nnode.warn('All LK Farm caches cleared — next trigger will backfill 7 days');\nreturn null;",
+    "outputs": 1,
+    "x": 310,
+    "y": 640,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "911bccead36e8e50",
+    "type": "function",
+    "z": "c0196b6b428c5526",
+    "name": "Init — Set dates & trigger page 1",
+    "func": "const energyCache = global.get('lkfarm_energy_cache') || [];\nconst isBackfill  = energyCache.length === 0;\n\nconst apiKey  = env.get('ASSET_API_KEY') || '';\nconst baseUrl = 'http://cei-inoe-lkfarm.greensupplychain.eu';\n\nconst pad = n => String(n).padStart(2,'0');\nconst toDate = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;\n\nconst now = new Date();\nconst endDate   = toDate(now);\nconst startD    = new Date(now);\nstartD.setDate(startD.getDate() - (isBackfill ? 30 : 1));\nconst startDate = toDate(startD);\n\n// Reset accumulators\nglobal.set('lkfarm_energy_17_acc', []);\nglobal.set('lkfarm_env_25_acc', []);\nglobal.set('lkfarm_env_26_acc', []);\n\nconst headers = { 'X-API-Key': apiKey };\nnode.status({ fill:'blue', shape:'ring', text: `${startDate} → ${endDate}` });\nnode.warn(`LK Farm: ${startDate} → ${endDate} | backfill=${isBackfill}`);\n\nconst makeMsg = (ds, type, topic) => ({\n    payload: {},\n    method:  'GET',\n    url:     `${baseUrl}/api/v1/${type}/hourly?datasource_id=${ds}&start_date=${startDate}&end_date=${endDate}&page_size=900`,\n    headers,\n    topic\n});\n\nreturn [\n    makeMsg(17, 'energy',        'energy_17'),\n    makeMsg(25, 'environmental', 'env_25'),\n    makeMsg(26, 'environmental', 'env_26')\n];",
+    "outputs": 3,
+    "timeout": "",
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 350,
+    "y": 160,
+    "wires": [
+      [
+        "0c7f2362c431e07a"
+      ],
+      [
+        "33c674fcd0948e1a"
+      ],
+      [
+        "9b91640ce6bf78a8"
+      ]
+    ]
+  },
+  {
+    "id": "0c7f2362c431e07a",
+    "type": "http request",
+    "z": "c0196b6b428c5526",
+    "name": "GET Energy",
+    "method": "use",
+    "ret": "obj",
+    "url": "",
+    "x": 290,
+    "y": 300,
+    "wires": [
+      [
+        "7659cbb088806920",
+        "65f92e633bbee67e"
+      ]
+    ]
+  },
+  {
+    "id": "33c674fcd0948e1a",
+    "type": "http request",
+    "z": "c0196b6b428c5526",
+    "name": "GET TRH2",
+    "method": "use",
+    "ret": "obj",
+    "url": "",
+    "x": 290,
+    "y": 360,
+    "wires": [
+      [
+        "42d64a3c06cca6a1",
+        "c5cfb57f42355639"
+      ]
+    ]
+  },
+  {
+    "id": "9b91640ce6bf78a8",
+    "type": "http request",
+    "z": "c0196b6b428c5526",
+    "name": "GET TRH4",
+    "method": "use",
+    "ret": "obj",
+    "url": "",
+    "x": 290,
+    "y": 420,
+    "wires": [
+      [
+        "58d1431d3f6b6684",
+        "ef57c3f54b13d8ef"
+      ]
+    ]
+  },
+  {
+    "id": "65f92e633bbee67e",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "RAW Energy",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 630,
+    "y": 140,
+    "wires": []
+  },
+  {
+    "id": "c5cfb57f42355639",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "RAW TRH2",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 630,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "ef57c3f54b13d8ef",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "RAW TRH4",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 630,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "7659cbb088806920",
+    "type": "function",
+    "z": "c0196b6b428c5526",
+    "name": "Normalize Energy + Publish",
+    "func": "const rows = (msg.payload && msg.payload.data) ? msg.payload.data : [];\nif (rows.length === 0) { node.status({fill:'red',shape:'ring',text:'no data'}); return null; }\n\nlet cache     = global.get('lkfarm_energy_cache')     || [];\nlet published = global.get('lkfarm_energy_published') || [];\nconst newEntries = [];\nconst ttlBase = 90 * 24 * 60 * 60;\n\nrows.forEach(row => {\n    const tsRaw = row.ts || row.timestamp;\n    const val   = row.energy_kwh !== undefined ? row.energy_kwh : row.val;\n    if (!tsRaw || val === null || val === undefined) return;\n    if (!cache.find(c => c.ts === tsRaw)) cache.push({ ts: tsRaw, value: parseFloat(val) });\n    if (!published.includes(tsRaw)) {\n        newEntries.push({ ts: tsRaw, value: parseFloat(val) });\n        published.push(tsRaw);\n    }\n});\n\ncache.sort((a,b) => new Date(b.ts) - new Date(a.ts));\ncache = cache;\npublished = published.slice(-1000);\nglobal.set('lkfarm_energy_cache', cache);\nglobal.set('lkfarm_energy_published', published);\n\n// Write to VRE cache — assetSamples:{assetId} with ts in milliseconds\nconst assetId = '1788435944961';\nconst vreSamples = cache.map(r => {\n    const tsStr = r.ts.endsWith('Z') ? r.ts : r.ts + 'Z';\n    return { ts: new Date(tsStr).getTime(), value: r.value };\n});\nglobal.set(`assetSamples:${assetId}`, vreSamples);\nnode.status({ fill:'green', shape:'dot', text:`${cache.length} cached | ${newEntries.length} new | VRE written` });\n\nif (newEntries.length === 0) return null;\n\nconst msgs = newEntries.map(e => {\n    const tsStr = e.ts.endsWith('Z') ? e.ts : e.ts + 'Z';\n    const ts    = Math.floor(new Date(tsStr).getTime() / 1000);\n    return { topic:'ocei/asset/1788435944961/data', payload:{ asset_id:'1788435944961', timestamp:ts, ttl:String(ts+ttlBase), customer_id:'71', val:e.value } };\n});\n\nreturn [msgs];",
+    "outputs": 1,
+    "x": 880,
+    "y": 300,
+    "wires": [
+      [
+        "835deafcd4d1bff1",
+        "0a8b844e77664383"
+      ]
+    ]
+  },
+  {
+    "id": "42d64a3c06cca6a1",
+    "type": "function",
+    "z": "c0196b6b428c5526",
+    "name": "Normalize TRH2 + Publish x2",
+    "func": "const rows = (msg.payload && msg.payload.data) ? msg.payload.data : [];\nif (rows.length === 0) { node.status({fill:'red',shape:'ring',text:'no data'}); return null; }\n\nlet cache     = global.get('lkfarm_trh2_cache')     || [];\nlet published = global.get('lkfarm_trh2_published') || [];\nconst newEntries = [];\nconst ttlBase = 90 * 24 * 60 * 60;\n\nrows.forEach(row => {\n    const tsRaw = row.timestamp || row.ts;\n    if (!tsRaw) return;\n    const ts = tsRaw.replace('Z','').substring(0,16) + ':00';\n    if (!cache.find(c => c.ts === ts)) cache.push({ ts, temperature: parseFloat(row.temperature), humidity: parseFloat(row.humidity) });\n    if (!published.includes(ts)) {\n        newEntries.push({ ts, temperature: parseFloat(row.temperature), humidity: parseFloat(row.humidity) });\n        published.push(ts);\n    }\n});\n\ncache.sort((a,b) => new Date(b.ts) - new Date(a.ts));\ncache = cache;\npublished = published.slice(-1000);\nglobal.set('lkfarm_trh2_cache', cache);\nglobal.set('lkfarm_trh2_published', published);\n\n// Write to VRE cache — Temperature TRH2 and Humidity TRH2\nconst toMs = ts => new Date((ts.endsWith('Z') ? ts : ts + 'Z')).getTime();\n\nglobal.set('assetSamples:1788435793985', cache.map(r => ({ ts: toMs(r.ts), value: r.temperature })));\nglobal.set('assetSamples:1788435636542', cache.map(r => ({ ts: toMs(r.ts), value: r.humidity })));\n\nconst latest = cache[0];\nnode.status({ fill:'green', shape:'dot', text:`${cache.length} cached | ${newEntries.length} new | VRE written` });\n\nif (newEntries.length === 0) return [null, null];\n\nconst tempMsgs = newEntries.map(e => {\n    const tsStr = e.ts.endsWith('Z') ? e.ts : e.ts + 'Z';\n    const ts    = Math.floor(new Date(tsStr).getTime() / 1000);\n    return { topic:'ocei/asset/1788435793985/data', payload:{ asset_id:'1788435793985', timestamp:ts, ttl:String(ts+ttlBase), customer_id:'71', val:e.temperature } };\n});\nconst humMsgs = newEntries.map(e => {\n    const tsStr = e.ts.endsWith('Z') ? e.ts : e.ts + 'Z';\n    const ts    = Math.floor(new Date(tsStr).getTime() / 1000);\n    return { topic:'ocei/asset/1788435636542/data', payload:{ asset_id:'1788435636542', timestamp:ts, ttl:String(ts+ttlBase), customer_id:'71', val:e.humidity } };\n});\n\nreturn [tempMsgs, humMsgs];",
+    "outputs": 2,
+    "x": 870,
+    "y": 360,
+    "wires": [
+      [
+        "835deafcd4d1bff1",
+        "e5600d095ce5cdb4"
+      ],
+      [
+        "835deafcd4d1bff1",
+        "a9babc6b156d3f3d"
+      ]
+    ]
+  },
+  {
+    "id": "58d1431d3f6b6684",
+    "type": "function",
+    "z": "c0196b6b428c5526",
+    "name": "Normalize TRH4 + Publish x2",
+    "func": "const rows = (msg.payload && msg.payload.data) ? msg.payload.data : [];\nif (rows.length === 0) { node.status({fill:'red',shape:'ring',text:'no data'}); return null; }\n\nlet cache     = global.get('lkfarm_trh4_cache')     || [];\nlet published = global.get('lkfarm_trh4_published') || [];\nconst newEntries = [];\nconst ttlBase = 90 * 24 * 60 * 60;\n\nrows.forEach(row => {\n    const tsRaw = row.timestamp || row.ts;\n    if (!tsRaw) return;\n    const ts = tsRaw.replace('Z','').substring(0,16) + ':00';\n    if (!cache.find(c => c.ts === ts)) cache.push({ ts, temperature: parseFloat(row.temperature), humidity: parseFloat(row.humidity) });\n    if (!published.includes(ts)) {\n        newEntries.push({ ts, temperature: parseFloat(row.temperature), humidity: parseFloat(row.humidity) });\n        published.push(ts);\n    }\n});\n\ncache.sort((a,b) => new Date(b.ts) - new Date(a.ts));\ncache = cache;\npublished = published.slice(-1000);\nglobal.set('lkfarm_trh4_cache', cache);\nglobal.set('lkfarm_trh4_published', published);\n\n// Write to VRE cache — Temperature TRH4 and Humidity TRH4\nconst toMs = ts => new Date((ts.endsWith('Z') ? ts : ts + 'Z')).getTime();\n\nglobal.set('assetSamples:1788435728216', cache.map(r => ({ ts: toMs(r.ts), value: r.temperature })));\nglobal.set('assetSamples:1788435845710', cache.map(r => ({ ts: toMs(r.ts), value: r.humidity })));\n\nconst latest = cache[0];\nnode.status({ fill:'green', shape:'dot', text:`${cache.length} cached | ${newEntries.length} new | VRE written` });\n\nif (newEntries.length === 0) return [null, null];\n\nconst tempMsgs = newEntries.map(e => {\n    const tsStr = e.ts.endsWith('Z') ? e.ts : e.ts + 'Z';\n    const ts    = Math.floor(new Date(tsStr).getTime() / 1000);\n    return { topic:'ocei/asset/1788435728216/data', payload:{ asset_id:'1788435728216', timestamp:ts, ttl:String(ts+ttlBase), customer_id:'71', val:e.temperature } };\n});\nconst humMsgs = newEntries.map(e => {\n    const tsStr = e.ts.endsWith('Z') ? e.ts : e.ts + 'Z';\n    const ts    = Math.floor(new Date(tsStr).getTime() / 1000);\n    return { topic:'ocei/asset/1788435845710/data', payload:{ asset_id:'1788435845710', timestamp:ts, ttl:String(ts+ttlBase), customer_id:'71', val:e.humidity } };\n});\n\nreturn [tempMsgs, humMsgs];",
+    "outputs": 2,
+    "x": 870,
+    "y": 420,
+    "wires": [
+      [
+        "835deafcd4d1bff1",
+        "ebd4ed5d7f79110f"
+      ],
+      [
+        "835deafcd4d1bff1",
+        "25fe78f01d7cb8ef"
+      ]
+    ]
+  },
+  {
+    "id": "4c8f801bb0a87fcd",
+    "type": "mqtt out",
+    "z": "c0196b6b428c5526",
+    "name": "Publish to AWS IoT",
+    "topic": "ocei_data/demo",
+    "qos": "1",
+    "retain": "false",
+    "respTopic": "",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "broker": "772dccd0d9d724d8",
+    "x": 1450,
+    "y": 320,
+    "wires": []
+  },
+  {
+    "id": "0a8b844e77664383",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "Energy payload",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 1200,
+    "y": 260,
+    "wires": []
+  },
+  {
+    "id": "e5600d095ce5cdb4",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "TRH2 Temp payload",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 1220,
+    "y": 380,
+    "wires": []
+  },
+  {
+    "id": "a9babc6b156d3f3d",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "TRH2 Humidity payload",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 1230,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "ebd4ed5d7f79110f",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "TRH4 Temp payload",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 1220,
+    "y": 460,
+    "wires": []
+  },
+  {
+    "id": "25fe78f01d7cb8ef",
+    "type": "debug",
+    "z": "c0196b6b428c5526",
+    "name": "TRH4 Humidity payload",
+    "active": true,
+    "tosidebar": true,
+    "complete": "payload",
+    "x": 1230,
+    "y": 500,
+    "wires": []
+  },
+  {
+    "id": "835deafcd4d1bff1",
+    "type": "delay",
+    "z": "c0196b6b428c5526",
+    "name": "Rate Limit 10/sec",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "10",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "allowrate": false,
+    "outputs": 1,
+    "x": 1210,
+    "y": 320,
+    "wires": [
+      [
+        "4c8f801bb0a87fcd"
+      ]
+    ]
+  }
 ]
